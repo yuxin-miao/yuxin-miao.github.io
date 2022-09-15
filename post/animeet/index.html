@@ -33,37 +33,15 @@ CS MS @ KTH | ECE BS @ SJTU
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Hi :)<br> 
-Student <br> 
-CS MS @ KTH | ECE BS @ SJTU
-
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/yuxin-miao" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="ri-github-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#description">Description</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -107,23 +85,78 @@ CS MS @ KTH | ECE BS @ SJTU
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-2-line"></i> 标签云
-        </h2>
-        <div class="tags-container">
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Animeet</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2022-06-21 / 2 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://yuxin-miao.github.io/post-images/animeet.png" alt="">
+        
+        <div class="post-content yue">
+          <p>A web-based visualization tool for anime dataset.</p>
+<!-- more -->
+<p><a href="https://animeet-nine.vercel.app/">Website</a><br>
+<a href="https://animeet-nine.vercel.app/demo">Demo</a><br>
+Course project done in DH2321 (Information Visualization) | 2022.02-2022.03 @ KTH Royal Institute of Technology</p>
+<h1 id="description">Description</h1>
+<p>Are you exploring some new animes to watch? Finding one that you like from a huge pool of animes can be difficult. Animeet visualizes all the animes using scatterplot, provides various filters, and offers detailed information! Use Animeet to find out your heart's animes and get the best watching experience.</p>
+<h1 id="features">Features</h1>
+<p><strong>Visualization Mappings</strong></p>
+<ul>
+<li>Visualize 18000+ animes data through scatterplot, provides an overview of all the aniems.</li>
+<li>Visualize animes through line charts, including <em>number vs. rank, rating, episodes, followers</em>.</li>
+<li>Visualize related animes about the selected anime through force-directed graph.</li>
+</ul>
+<p><strong>Filters</strong></p>
+<ul>
+<li>Change X/Y Axis of scatterplot to any attribute.</li>
+<li>Filter animes based on selected <em>studio, number of followers, types, released seasons, tags, and content warnings</em>.</li>
+</ul>
+<p><strong>Searchbox</strong></p>
+<ul>
+<li>Search one specific anime to check its informaiton and related animes.</li>
+<li>Search one voice actors to check all the animes that he/she participated in.</li>
+</ul>
+<p><strong>Info Panel</strong></p>
+<ul>
+<li>Display information of selected anime, including poster, description, tags, voice actors, staff, number of followers, and etc.</li>
+</ul>
+<h1 id="about">About</h1>
+<p>In this project, I'm responsible for</p>
+<ul>
+<li>creating the initial version of the scatterplot by D3.js.</li>
+<li>implementing the Range selection component and built line charts by D3.js.</li>
+<li>implementing the search box component with auto-complete function.</li>
+<li>developing the pages About, Team and Demo.</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yuxin-miao.github.io/tag/course-project/">
+            <span class="flex-auto">CourseProject</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yuxin-miao.github.io/tag/course-project/" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-              <span class="flex-auto">CourseProject</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">3</span>
-            </a>
+
           
-            <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yuxin-miao.github.io/tag/course-note/" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-              <span class="flex-auto">CourseNote</span>
-              <span class="flex rounded-full bg-gray-200 px-2 py-1 text-xs ml-1">4</span>
-            </a>
+            <div class="next-post">
+              <a href="https://yuxin-miao.github.io/post/awakening-of-sonny/">
+                <h3 class="post-title">
+                  Awakening of Sonny
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
           
         </div>
+
+        
+
       </div>
     </div>
 

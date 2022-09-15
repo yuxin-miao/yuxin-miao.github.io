@@ -1,0 +1,2712 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Xinmiao</title>
+<meta name="description" content="Hi :)<br> 
+Student <br> 
+CS MS @ KTH | ECE BS @ SJTU
+" />
+<link rel="shortcut icon" href="https://yuxin-miao.github.io/favicon.ico?v=1663260367037">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://yuxin-miao.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://yuxin-miao.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yuxin-miao.github.io/images/avatar.png?v=1663260367037" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">Xinmiao</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#chapter-1">Chapter 1</a></li>
+<li><a href="#chapter-1-2">Chapter 1</a></li>
+<li><a href="#chapter-2">Chapter 2</a>
+<ul>
+<li><a href="#register-operands">Register Operands</a></li>
+<li><a href="#memory-operands">Memory Operands</a>
+<ul>
+<li><a href="#load-word">load word</a></li>
+<li><a href="#store-word">Store Word</a></li>
+</ul>
+</li>
+<li><a href="#immediate-operands-constant">Immediate Operands (constant)</a>
+<ul>
+<li><a href="#load-32-bits-constant">load 32-bits constant</a></li>
+</ul>
+</li>
+<li><a href="#iffor">If/For</a></li>
+<li><a href="#bytehalfword-operations">Byte/Halfword Operations</a></li>
+<li><a href="#assembly-language">Assembly Language</a></li>
+</ul>
+</li>
+<li><a href="#chapter-3">Chapter 3</a>
+<ul>
+<li><a href="#program-counter"><strong>program counter</strong></a></li>
+<li><a href="#function-calling">function calling</a>
+<ul>
+<li><a href="#function-call-instructions">Function call instructions</a></li>
+<li><a href="#leaf-function">leaf function</a></li>
+<li><a href="#non-leaf-funciton">Non-leaf funciton</a></li>
+</ul>
+</li>
+<li><a href="#function-calling-convention">Function Calling Convention</a></li>
+<li><a href="#example">Example</a></li>
+<li><a href="#template">Template</a></li>
+<li><a href="#translation-and-startup">Translation and Startup</a>
+<ul>
+<li><a href="#complier">Complier</a></li>
+<li><a href="#assembler">assembler</a></li>
+<li><a href="#linker">linker</a></li>
+<li><a href="#loader">Loader</a></li>
+<li><a href="#dynamic-linking">Dynamic Linking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#topic-4">Topic 4</a>
+<ul>
+<li><a href="#r-format">R-format</a>
+<ul>
+<li><a href="#instruction-fields">Instruction fields</a></li>
+</ul>
+</li>
+<li><a href="#i-format">I-format</a></li>
+<li><a href="#j-format">J-format</a></li>
+<li><a href="#addressing-in-branches-and-jumps">Addressing in Branches and Jumps</a></li>
+<li><a href="#decoding-machine-code">Decoding Machine Code</a></li>
+</ul>
+</li>
+<li><a href="#t05">T05</a></li>
+<li><a href="#t06">T06</a><br>
+*
+<ul>
+<li><a href="#clocking-methodology">Clocking Methodology</a></li>
+</ul>
+</li>
+<li><a href="#t07">T07</a></li>
+<li><a href="#t08">T08</a><br>
+*
+<ul>
+<li><a href="#load-use-hazard-detection">Load use hazard detection</a></li>
+</ul>
+</li>
+<li><a href="#final-review">Final Review</a>
+<ul>
+<li><a href="#pipeline">Pipeline</a></li>
+<li><a href="#cache">Cache</a>
+<ul>
+<li><a href="#overall">Overall</a></li>
+<li><a href="#points">Points</a>
+<ul>
+<li><a href="#difference-types-of-cache">Difference types of cache</a>
+<ul>
+<li><a href="#directed-mapped-cache">directed mapped cache:</a></li>
+<li><a href="#n-way-set-associative-cache-%E9%9C%80%E8%A6%81set-index%E4%BD%86access%E4%B8%80%E4%B8%AAset%E4%B8%AD%E7%9A%84block%E5%BF%85%E9%A1%BBcompare-n%E6%AC%A1">N-way set associative cache: 需要set index，但access一个set中的block必须compare N次</a></li>
+<li><a href="#full-associative-cache">Full-associative cache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#virtual-memory">Virtual Memory</a></li>
+<li><a href="#overall-framework">Overall Framework</a></li>
+</ul>
+</li>
+<li><a href="#chapter-2-2">Chapter 2</a>
+<ul>
+<li><a href="#register-operands-2">Register Operands</a></li>
+<li><a href="#memory-operands-2">Memory Operands</a>
+<ul>
+<li><a href="#load-word-2">load word</a></li>
+<li><a href="#store-word-2">Store Word</a></li>
+</ul>
+</li>
+<li><a href="#immediate-operands-constant-2">Immediate Operands (constant)</a>
+<ul>
+<li><a href="#load-32-bits-constant-2">load 32-bits constant</a></li>
+</ul>
+</li>
+<li><a href="#iffor-2">If/For</a></li>
+<li><a href="#bytehalfword-operations-2">Byte/Halfword Operations</a></li>
+<li><a href="#assembly-language-2">Assembly Language</a></li>
+</ul>
+</li>
+<li><a href="#chapter-3-2">Chapter 3</a>
+<ul>
+<li><a href="#program-counter-2"><strong>program counter</strong></a></li>
+<li><a href="#function-calling-2">function calling</a>
+<ul>
+<li><a href="#function-call-instructions-2">Function call instructions</a></li>
+<li><a href="#leaf-function-2">leaf function</a></li>
+<li><a href="#non-leaf-funciton-2">Non-leaf funciton</a></li>
+</ul>
+</li>
+<li><a href="#function-calling-convention-2">Function Calling Convention</a></li>
+<li><a href="#example-2">Example</a></li>
+<li><a href="#template-2">Template</a></li>
+<li><a href="#translation-and-startup-2">Translation and Startup</a>
+<ul>
+<li><a href="#complier-2">Complier</a></li>
+<li><a href="#assembler-2">assembler</a></li>
+<li><a href="#linker-2">linker</a></li>
+<li><a href="#loader-2">Loader</a></li>
+<li><a href="#dynamic-linking-2">Dynamic Linking</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#topic-4-2">Topic 4</a>
+<ul>
+<li><a href="#r-format-2">R-format</a>
+<ul>
+<li><a href="#instruction-fields-2">Instruction fields</a></li>
+</ul>
+</li>
+<li><a href="#i-format-2">I-format</a></li>
+<li><a href="#j-format-2">J-format</a></li>
+<li><a href="#addressing-in-branches-and-jumps-2">Addressing in Branches and Jumps</a></li>
+<li><a href="#decoding-machine-code-2">Decoding Machine Code</a></li>
+</ul>
+</li>
+<li><a href="#t05-2">T05</a></li>
+<li><a href="#t06-2">T06</a><br>
+*
+<ul>
+<li><a href="#clocking-methodology-2">Clocking Methodology</a></li>
+</ul>
+</li>
+<li><a href="#t07-2">T07</a></li>
+<li><a href="#t08-2">T08</a><br>
+*
+<ul>
+<li><a href="#load-use-hazard-detection-2">Load use hazard detection</a></li>
+</ul>
+</li>
+<li><a href="#final-review-2">Final Review</a>
+<ul>
+<li><a href="#pipeline-2">Pipeline</a></li>
+<li><a href="#cache-2">Cache</a>
+<ul>
+<li><a href="#overall-2">Overall</a></li>
+<li><a href="#points-2">Points</a>
+<ul>
+<li><a href="#difference-types-of-cache-2">Difference types of cache</a>
+<ul>
+<li><a href="#directed-mapped-cache-2">directed mapped cache:</a></li>
+<li><a href="#n-way-set-associative-cache-%E9%9C%80%E8%A6%81set-index%E4%BD%86access%E4%B8%80%E4%B8%AAset%E4%B8%AD%E7%9A%84block%E5%BF%85%E9%A1%BBcompare-n%E6%AC%A1-2">N-way set associative cache: 需要set index，但access一个set中的block必须compare N次</a></li>
+<li><a href="#full-associative-cache-2">Full-associative cache</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#virtual-memory-2">Virtual Memory</a></li>
+<li><a href="#overall-framework-2">Overall Framework</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页 Home
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档 Archive
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签 Tag
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于 About
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://yuxin-miao.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">VE370 Notes</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-12-14 / 71 min read
+        </div>
+        
+          <img class="post-feature-image rounded-lg mx-auto my-4" src="https://yuxin-miao.github.io/post-images/ve370-notes.png" alt="">
+        
+        <div class="post-content yue">
+          <p>Course Notes for VE370 (Introduction to Computer Organizations) | FA2020 @UM-SJTU JI, Shanghai Jiao Tong University.</p>
+<!-- more -->
+<p>To run the .s file direclty through bash, use</p>
+<pre><code class="language-bash">spim -bare
+read &quot;&quot;
+run
+</code></pre>
+<p>REMEMBER: 2’s complement</p>
+<h1 id="chapter-1">Chapter 1</h1>
+<p>Performance<br>
+To run the .s file direclty through bash, use</p>
+<pre><code class="language-bash">spim -bare
+read &quot;&quot;
+run
+</code></pre>
+<p>REMEMBER: 2’s complement</p>
+<h1 id="chapter-1-2">Chapter 1</h1>
+<p>Performance</p>
+<ul>
+<li>
+<figure data-type="image" tabindex="1"><img src="https://yuxin-miao.github.io/post-images/1663252750895.png" alt="" loading="lazy"></figure>
+</li>
+<li>
+<p><strong>ISA</strong>: Instruction Set Architecture</p>
+</li>
+<li>
+<p>Instruction count: <strong>IC</strong> (由program, ISA, complier 决定)</p>
+</li>
+<li>
+<p>Clock Cycle per Instruction: <strong>CPI</strong></p>
+</li>
+<li>
+<p>Clock Cycles = IC * CPI</p>
+</li>
+</ul>
+<blockquote>
+<p>momorize the equation</p>
+<p>GHz = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></p>
+</blockquote>
+<h1 id="chapter-2">Chapter 2</h1>
+<p center> **Operation and Operands ** </p>
+<img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20200918202135979.png" alt="image-20200918202135979" style="zoom:50%;" />
+<pre><code class="language-bash"># c language 
+# need preprocessor 
+gcc -E test.c &gt; test.i
+
+gcc -S test.s # obtain test.s
+gcc -c test.c # obtain test.o, which is machine code to read $ hexdump text.o
+/*or*/
+hexdump -C test.c # to show ASCII 
+gcc test.o -o test # obtain executable machine code test 
+# so gcc could followed by test.c or test.o
+
+</code></pre>
+<ul>
+<li>Instruction Set
+<ul>
+<li>RISC: reduced instruction set computer</li>
+<li>CISC: complex instruction set computer</li>
+</ul>
+</li>
+</ul>
+<p>MIPS Instruction Set</p>
+<p>Design Principle</p>
+<ol>
+<li>Simplicity favors regularity.</li>
+<li>Smaller is faster</li>
+<li>Make the common case faster</li>
+</ol>
+<h2 id="register-operands">Register Operands</h2>
+<p>MIPS architecture has a 32*32-bit register file</p>
+<blockquote>
+<p>$zero: constant 0 (reg 0, also written as 0)<br>
+$at: Assembler Temporary (reg 1, or 1)<br>
+$v0, v1: result values (reg’s 2 and 3, or 2 and 3); use value for function result<br>
+$a0 – a3: arguments (reg’s 4 – 7, or 4 - 7)<br>
+$t0 – t7: temporaries (reg’s 8 – 15, or 8 - 15); can be overwritten by callee<br>
+$s0 – s7: saved (reg’s 16 – 23, or 16 - 23); be saved/restored by callee<br>
+$t8, t9: temporaries (reg’s 24 and 25, or 24 and 25)<br>
+$k0, k1: reserved for OS kernel (reg’s 26 and 27, 26/27)</p>
+<p>$gp: global pointer for static data (reg 28, or 28)<br>
+$sp: stack pointer (reg 29, or 29)<br>
+$fp: frame pointer (reg 30, or 30)<br>
+$ra: return address (reg 31, or $31)</p>
+</blockquote>
+<pre><code class="language-assembly">lw rt, offset(rs)# offset should be 4*(an integer) offset: a 16-bits 2's complement number
+
+
+## Byte/Halfword Operations R[rt] = Mem[R[rs] + signExtensionOffest] 为32bits与16bits相加##
+lb rt, offset(rs) # offset could be any integer (-2 is okey)
+lh rt, offset(rs # repeat the sign bit
+
+lbu rt, offset(rs) # for unsigned byte; 
+lhu rt, offset(rs) # repeat zero
+
+sb rt, offset(rs) 
+sh rt, offset(rs)
+
+</code></pre>
+<h2 id="memory-operands">Memory Operands</h2>
+<ul>
+<li>
+<p>mainly for composite data (arrays, structures, dynamic data)</p>
+</li>
+<li>
+<p>steps</p>
+<ul>
+<li><code>lw</code>: from memory into registers</li>
+<li>perfrom arithmetic operations with registers</li>
+<li><code>sw</code>: from register back to memory</li>
+</ul>
+</li>
+<li>
+<p>Byte addressable - each address identifies a 8-bit byte</p>
+</li>
+<li>
+<p>organized in word</p>
+</li>
+<li>
+<p>Big/little Endian: MIPS is big Endian</p>
+<img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20200918185859922.png" alt="image-20200918185859922" style="zoom:50%;" />
+</li>
+</ul>
+<pre><code class="language-c">g = h + A[8]
+</code></pre>
+<p>h in $s2, base address of A in $s3</p>
+<h3 id="load-word">load word</h3>
+<p>from the content in register ($s3), the content + offset (32), is the address of the content need to be loaded.</p>
+<p>The content in the address ( Reg[$s3]) + offset (32)) is loaded in $t0</p>
+<p><code>$t0</code> load in the content in this address. Content: A[8]</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917162604239.png" alt="image-20200917162604239" style="zoom:50%;" />
+<h3 id="store-word">Store Word</h3>
+<pre><code class="language-assembly">lw $t0, 32($s3)
+add $t0, $s2, $t0
+sw $t0, 48($s3) 
+</code></pre>
+<p>Store the content in $t0, into the content of the address (content in $s3 + 48)</p>
+<p>![image-20200917162852822](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917162852822.png)</p>
+<ul>
+<li>
+<p>difference between <code>lb</code> and <code>lbu</code></p>
+<p><code>lb</code>: load byte; R[rt] = SignExt(M[R[rs]+SignExtImm])</p>
+<p><code>lbu</code>: load byte unsigned; R[rt] = {24b'0,M[R[rs]+SignExtImm] (7:0)}</p>
+</li>
+</ul>
+<h2 id="immediate-operands-constant">Immediate Operands (constant)</h2>
+<p><code>sll</code> by i bits = multiply by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">2^i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span></p>
+<p><code>srl</code> by i bits = divides by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">2^i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span> (unsigned only)</p>
+<h3 id="load-32-bits-constant">load 32-bits constant</h3>
+<ul>
+<li><code>lui rt, constant</code>
+<ul>
+<li>copies 16-bit constant to left 16 bits of rt</li>
+<li>clear right 16-bits of rt to 0</li>
+</ul>
+</li>
+<li><code>ori $t0, $t0, 0x....</code> $t1 = $t2| ZeroExtImm</li>
+</ul>
+<pre><code class="language-assembly"># load 0x56781234 to register $s3
+lui $s3, 0x5678
+ori $s3, $s3, 0x1234
+</code></pre>
+<p>For the number stored in a byte if its value is larger than <strong>(10000000) or(80)hex</strong>. If we want to load its original value to a new register, we need to use <code>lbu</code>. If we use lb at this time, the value stored in the new register will be negative.</p>
+<h2 id="iffor">If/For</h2>
+<p>no <code>blt</code>, <code>bge</code>, <code>ble</code>, <code>bgt</code></p>
+<p><code>beq</code>, <code>bne</code> common; combined with <code>slt</code>, <code>slti</code>, <code>sltiu</code></p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918204354042.png" alt="image-20200918204354042" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918204439309.png" alt="image-20200918204439309" style="zoom:33%;" />
+<h2 id="bytehalfword-operations">Byte/Halfword Operations</h2>
+<pre><code class="language-assembly"># i.e. load in byte 0xFA
+/*Signed, with sign extension*/
+	lb rt, offset(rs)		# offset could be any integer;in rt 0xFFFFFFFA
+	lh rt, offset(rs)
+/*Unsigned, with zero extension*/
+	lbu rt, offset(rs)		# offset could be any integer; in rt 0x000000FA
+	lhu rt, offset(rs)
+</code></pre>
+<p><font color=#CD5C5C>有时候要注意offset是否要乘4，如果array是存储的bytes而不是words，则不需要乘4</font></p>
+<h2 id="assembly-language">Assembly Language</h2>
+<p>Example.c</p>
+<pre><code class="language-c">int add_a_and_b(int a, int b) {
+   return a + b;
+}
+
+int main() {
+   return add_a_and_b(2, 3);
+}
+</code></pre>
+<p>转化为汇编语言</p>
+<pre><code>$ gcc -S example.c
+</code></pre>
+<p>**arm! but not mips **</p>
+<p>example.s</p>
+<pre><code class="language-assembly">_add_a_and_b: # 并不是标准命令
+   push   %ebx
+   mov    %eax, [%esp+8] 
+   mov    %ebx, [%esp+12]
+   add    %eax, %ebx 
+   pop    %ebx # pop会将ESP寄存器中地址加4
+   ret  # 当前函数frame被回收
+
+_main:
+   push   3  # push: CPU指令，将运算子放入stack，即3写入main这个frame
+   push   2 # push会将ESP寄存器中地址减4
+   call   _add_a_and_b # call：调用函数
+   add    %esp, 8
+   ret
+</code></pre>
+<p>从<code>_main</code>开始执行，在stack上为main建立一个frame（帧）,stack所指向的地址写入ESP寄存器。数据若要写入main这个frame，则写在ESP寄存器所保存的地址。stack：从高位向地位发展。ESP中地址减去四个字节（int）后，新地址写入ESP</p>
+<figure data-type="image" tabindex="2"><img src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018012216.png" alt="bg2018012216" loading="lazy"></figure>
+<h1 id="chapter-3">Chapter 3</h1>
+<p><strong>Function</strong></p>
+<p>program stored in memory , instructions represented in binary, like data. <em>Each instruction is stored as a word in PC, so 0:0, 4:100, 8: 1000</em>, all the instruction will be ended with 2’b0.</p>
+<h2 id="program-counter"><strong>program counter</strong></h2>
+<p>(PC) (instruction address register)</p>
+<ul>
+<li>address of the instruction is sotred in PC</li>
+<li>32 bits register</li>
+<li>a special register in CPU (not same as the registers in register file)</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917145047483.png" alt="image-20200917145047483" style="zoom:30%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917153557980.png" alt="image-20200917153557980" style="zoom:40%;" />
+<h2 id="function-calling">function calling</h2>
+<blockquote>
+<p>Similarly, in the execution of a procedure, the program must follow these six steps:</p>
+<ol>
+<li>Put parameters in a place where the procedure can access them.</li>
+<li>Transfer control to the procedure.</li>
+<li>Acquire the storage resources needed for the procedure.</li>
+<li>Perform the desired task.</li>
+<li>Put the result value in a place where the calling program can access it.</li>
+<li>Return control to the point of origin, since a procedure can be called from several points in a program.</li>
+</ol>
+</blockquote>
+<h3 id="function-call-instructions">Function call instructions</h3>
+<ul>
+<li>
+<p><em>Function call operation</em>:  jump-and-link instruction <code>jal FunctionLabel</code> (J-type)</p>
+<p>An instruction that jumps to an address and simultaneously saves the address of the following instruction in a register ($ra in MIPS).</p>
+<ul>
+<li>$ra = PC+4 (the address of following instruction)</li>
+<li>PC = Addr(function label)</li>
+</ul>
+</li>
+<li>
+<p><em>Function return operation</em>: jump register <code>jr $ra</code> (R-type)</p>
+<ul>
+<li>PC = $ra; Copies $ra to program counter</li>
+</ul>
+</li>
+<li>
+<p>return address</p>
+<p>A link to the calling site that allows a procedure to return to the proper address;</p>
+<p>in MIPS it is stored in register $ra.</p>
+</li>
+<li>
+<p>caller: The program that instigates a procedure and provides the necessary parameter values.</p>
+</li>
+<li>
+<p>Callee: A procedure that executes a series of stored instructions based on parameters provided by the caller and then returns control to the caller.</p>
+</li>
+<li>
+<p><strong>stack pointer</strong> ($sp)</p>
+</li>
+<li>
+<p>pointing to the <strong>top of the stack</strong></p>
+<ul>
+<li>By mean top, not mean when adding more items, the address of $sp would not become larger, but it should be subtracion.</li>
+</ul>
+</li>
+<li>
+<p>frame pointer ($fp)</p>
+</li>
+</ul>
+<p>a frame pointer offers a stable base register within a procedure for local memory-references. as $sp might change</p>
+<h3 id="leaf-function">leaf function</h3>
+<blockquote>
+<p>Eg1: see swap</p>
+</blockquote>
+<p>function that don’t call other functions</p>
+<pre><code class="language-assembly">addi $sp, $sp, -12 # create spaces in stack
+sw $t1, 8($sp) # store data on stack
+sw $t0, 4($sp) # actually, no need to operate on $t0 and $t1
+sw $s0, 0($sp)
+....
+
+lw $s0, 0($sp) # restore data from stack
+lw $t0, 4($sp)
+lw $t1, 8($sp)
+addi $sp, $sp, 12 # destroy spaces on stack
+jr $ra # return from function
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917215149676.png" alt="image-20200917215149676" style="zoom:40%;" />
+<h3 id="non-leaf-funciton">Non-leaf funciton</h3>
+<blockquote>
+<p>Eg2: see sort</p>
+</blockquote>
+<p>function that calls other functions</p>
+<p>For nested call, caller need to save on the stack</p>
+<ol>
+<li>
+<p>its return address</p>
+</li>
+<li>
+<p>any arguments and temporaries needed after the call</p>
+</li>
+</ol>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918091228677_副本.png" alt="image-20200918091228677" style="zoom:50%;" />
+<pre><code class="language-c">int fact (int n) {
+  if (n &lt; 1) return f;
+  else return n * fact(n - 1)
+}
+</code></pre>
+<p>argument n in $a0, result in $v0</p>
+<pre><code class="language-assembly">fact: 
+		addi $sp, $sp, -8
+		sw $ra, 4($sp)
+		sw $a0, 0($sp)
+		slti $t0, $a0, 1
+		beq $t0, $zero, L1 # the label tells where to go, such that L1 should have the address 
+		addi $v0, $zero, 1
+		addi $sp, $sp, 8
+		jr $ra
+L1: 
+		addi $a0, $a0, -1
+		jal fact
+		lw $a0, 0($sp)
+		lw $ra, 4($sp)
+		addi $sp, $sp, 8
+		mul $v0, $a0, $v0
+		jr $ra
+
+</code></pre>
+<h2 id="function-calling-convention">Function Calling Convention</h2>
+<p>do not follow convention not mean syntax error, but highly likely to create error</p>
+<p>when to apply</p>
+<ul>
+<li>
+<p>immediatly before the function is called</p>
+<ul>
+<li>pass arguments to $a0 - $a3 (more arguments on stack, addressable via $fp)</li>
+<li>save register that should be saved by caller ( i.e. $a0 - $a3  non-leaf function)</li>
+<li><code>jal</code></li>
+</ul>
+</li>
+<li>
+<p>in function, but before it starts executing</p>
+<ul>
+<li>allocate memory of frame’s size (moving $sp downwards)</li>
+<li>Save registers that should be saved by the function in the frame, before they are overwritten ($s0-$s7 (if to be used), $fp (if used), ​$ra (non- leaf function))</li>
+<li>Establish $fp (if desired), $fp = $sp + frame’s size - 4</li>
+</ul>
+</li>
+<li>
+<p>immediatly before the funtion finishes</p>
+<ul>
+<li>if necessary, place the function result to $v0, $v1</li>
+<li>Restore registers saved by the function (pop from frame)</li>
+<li>destroy stack frame (by moving $sp upwards)</li>
+<li><code>jr $ra</code></li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200920130607592.png" alt="image-20200920130607592" style="zoom:67%;" />
+</li>
+</ul>
+<h2 id="example">Example</h2>
+<p>When translate from C to assembly language</p>
+<blockquote>
+<ol>
+<li>Allocate registers to program variables.</li>
+<li>Produce code for the body of the procedure.</li>
+<li>Preserve registers across the procedure invocation.</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>swap</code></li>
+</ul>
+<pre><code class="language-c">void swap(int v[], int k) {
+	int temp;
+	temp = v[k]; 
+  v[k] = v[k+1]; 
+  v[k+1] = temp;
+}
+</code></pre>
+<pre><code>1. program argument: `$a0, $a1 -&gt; v, k` 		temporary variable: `$t0 -&gt; temp`
+</code></pre>
+<ol start="2">
+<li>
+<pre><code class="language-assembly">/*procedure body*/
+swap: sll $t1, $a1, 2 # $t1 = k * 4
+      add $t1, $a0, $t1 # t1 = v + k * 4, the address of v[k]
+      
+      lw $t0, 0($t1) # $t1 (temp) = v[k]; load the content in address 0($t1) to the content oof $t0
+      lw $t2, 4($t1) # $t2 = v[k+1];
+      
+      sw $t2, 0($t1) # v[k] = v[k+1]; store the content in $t2 to thr content in address 0($t1)
+      sw $t0, 4($t1) # v[k+1] = temp;
+/*procedure return*/
+      jr $ra
+</code></pre>
+</li>
+</ol>
+<ul>
+<li><code>sort</code></li>
+</ul>
+<pre><code class="language-c">void sort (int v[], int n) {
+  int i, j;
+  for (i = 0; i &lt; n; i += 1) {
+  	for (j = i – 1; j &gt;= 0 &amp;&amp; v[j] &gt; v[j + 1]; j -= 1) { 
+      swap(v,j);
+  	} 
+  }
+}
+</code></pre>
+<p>Problem: <code>sort</code> needs the value in $a0 and $a1, <code>swap</code> need to have the parameters placed in those same registers.</p>
+<p>v in $a0, n in $a1, i in $s0, j in $s1</p>
+<pre><code class="language-assembly">sort:
+		addi $sp, $sp, -20
+		sw $ra, 16($sp)
+		sw $s3, 12($sp)
+		sw $s2, 8($sp)
+		sw $s1, 4($sp)
+		sw $s0, 0($sp)
+		add $s2, $a0, $zero	# $s2 = BA of v
+		add $s3, $a1, $zero	# s3 = n
+		add $s0, $zero, $zero	# i = 0
+for1tst: 
+		slt $t0, $s0, $s3
+		beq $t0, $zer0, exit1 # when i &gt;= n, exit the first loop
+		addi $s1, $s0, -1 # j = i - 1
+for2tst:
+		slt $t0, $s1, 0
+		bne $t0, $zero, exit2 # when j &lt; 0 exit the second loop
+		sll $t1, $s1, 2 # $t1 = j*4
+		add $t2, $t1, $s2 # t2: the address of v[j]; v + j * 4
+		lw $t3, 0($t2) # v[j]
+		lw $t4, 4($t2) # v[j + 1]
+		sll $t0, $t4, $t3
+		beq $t0, $zero, exit2 # v[j] &lt; v[j + 1]
+		add $a0, $s2, $zero # prepare for the paramete needed for next function call swap
+		add $a1, $s1, $zero
+		jal swap
+		addi $s1, $s1, -1
+		j for2tst
+exit2: 
+		addi $s0, $s0, 1 #i+=1
+		j for1tst
+exit1: 
+	 lw $s0, 0($sp)
+	 lw $s1, 4($sp)
+	 lw $s2, 8($sp)
+	 lw $s3, 12($sp)
+	 lw $ra, 16($sp)
+	 addi $sp, $sp, 12
+	 jr $ra 							# return to calling routine 
+</code></pre>
+<ul>
+<li><code>fib</code></li>
+</ul>
+<pre><code class="language-c">int fib(int n) {
+  if (n &lt; 3)
+    return 1;
+  else 
+    return fib(n-1) + fib(n-2); 
+}
+</code></pre>
+<pre><code class="language-assembly">fib:
+	addi 	$sp, $sp, -12
+	sw		$s0, 8($sp)
+	sw 		$a0, 4($sp)
+	sw		$ra, 0($sp)
+	slti	$t0, $a0, 3
+	beq		$t0, $zero, else
+	# lw		$ra, 0($sp) unnecessary load here 
+	# lw		$a0, 4($sp)
+	addi	$sp, $sp, 12 
+	addi	$v0, $zero, 1
+	jr		$ra
+
+else:
+	lw		$ra, 0($sp)
+	lw		$a0, 4($sp)
+	addi 	$a0, $a0, -1
+	jal	 	fib
+
+	add	 	$s0, $v0, $zero	# we need $s0 to store the value so adjust the stack for 3 items 
+	sw 		$a0, 4($sp)
+	sw		$ra, 0($sp)
+	addi 	$a0, $a0, -2
+	jal 	fib
+	addi 	$t1, $v0, 0
+	lw		$ra, 0($sp)
+	lw		$a0, 4($sp)
+	addi	$sp, $sp, 8
+	add		$v0, $t1, $t0
+	jr 		$ra
+</code></pre>
+<pre><code class="language-assembly"># VE370 2020FA RC Week 3
+# Class exercise: fib
+# Author: Li Shi
+
+# Important note: 
+#   This program is written in Linux, and executed by
+#     1. spim -bare
+#     2. (spim) read &quot;fib.s&quot;
+#     3. (spim) run
+#   You may need to modify this program to execute in PCSpim.
+
+.text
+
+main:
+  addi  $a0,  $0,   8
+  jal   fib                 # Call fib(8)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $a0,  $v0,  0       # Print fib(8)
+  addi  $v0,  $0,   1       
+  syscall
+  addi  $v0,  $0,   10      # System call 10 (exit)
+  syscall                   # Exit
+
+fib:
+  addi  $sp,  $sp,  -12     # Allocate the stack frame
+  sw    $ra,  8($sp)
+  sw    $a0,  4($sp)
+  sw    $s0,  0($sp)        # We will use $s0 later
+  slti  $t0,  $a0,  3       # Test for n &lt; 3
+  beq   $t0,  $0,   elseBlock
+  addi  $v0,  $0,   1       # return 1 
+  addi  $sp,  $sp,  12 
+  jr    $ra
+  add   $t0,  $t0,  $0      # Delay
+
+elseBlock:
+  addi  $a0,  $a0,  -1
+  jal   fib                 # fib(n-1)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $s0,  $v0,  0       # Q: What is $s0 used for?
+  addi  $a0,  $a0,  -1
+  jal   fib                 # fib(n-2)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  add   $v0,  $v0,  $s0     # return fib(n-1)+fib(n-2)
+  lw    $s0,  0($sp)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  lw    $a0,  4($sp)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  lw    $ra,  8($sp)    
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $sp,  $sp,  12      # Pop the stack
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  jr    $ra
+  add   $t0,  $t0,  $0      # Delay
+
+</code></pre>
+<h2 id="template">Template</h2>
+<ul>
+<li>if ($s0 &lt; $s1) { ... } else { ... }</li>
+</ul>
+<pre><code class="language-assembly">      slt $t0, $s0, $s1
+      beq $t0, $zero, else 
+      ....
+      j elseExit ## remember to jump out when finish if 
+else: ....
+elseExit: 
+</code></pre>
+<ul>
+<li>for ($t0 = 0; $t0 &lt; $a1; $t0++) { ... }</li>
+</ul>
+<pre><code class="language-assembly">Loop:
+		add $t0, $zero, $zero
+		slt $t1, $t0, $a1
+		beq $t1, $zero, exit
+		...
+		addi $t0, $t0, 1
+		j Loop
+exit:
+</code></pre>
+<h2 id="translation-and-startup">Translation and Startup</h2>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919103108277.png" alt="image-20200919103108277" style="zoom:33%;" />
+<h3 id="complier">Complier</h3>
+<p>tansform the C program into an assembly language program (a symbolic form of waht the machine understands)</p>
+<h3 id="assembler">assembler</h3>
+<blockquote>
+<p>To produce the binary version of each instruction in the assembly language program, the assembler must determine the addresses corresponding to all labels. Assemblers keep track of labels used in branches and data transfer instructions in a <strong>symbol table</strong>. As you might expect, the table contains pairs of symbols and addresses.</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919104550827.png" alt="image-20200919104550827" style="zoom:33%;" />
+<p><strong>producing an object module</strong></p>
+<p>Example</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919105156829.png" alt="image-20200919105156829" style="zoom:33%;" />
+<p>​			- In the object file:</p>
+<blockquote>
+<p>the instructions in assembly language just to make the example understandable; in reality, the instructions would be numbers.</p>
+</blockquote>
+<p>​		<em>Note that the address and symbols that must be updated in the link process is higlighted</em>:</p>
+<pre><code>			1. the instructions that refer to the address of procedures $A$ and $B$
+
+			2. the instructions that refers to the data word $X$ and $Y$
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919105719045.png" alt="image-20200919105719045" style="zoom:50%;" />
+<h3 id="linker">linker</h3>
+<p>Also called link editor. A systems program that combines independently assembled machine language programs and resolves all undefined labels into an <strong>executable file</strong>.</p>
+<ol>
+<li>
+<p>merge segments</p>
+</li>
+<li>
+<p>resolve labels (determine their address)</p>
+</li>
+<li>
+<p>patch location-dependent and external reference</p>
+</li>
+</ol>
+<p><strong>example of linked objects</strong></p>
+<p>Object is already machine language, but no memory has been traslated (the translator do not know about)</p>
+<blockquote>
+<p>the text segment starts at address 40 0000hex and the data segment at 1000 0000hex.</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919111236159.png" alt="image-20200919111236159" style="zoom:50%;" />
+<blockquote>
+<ol>
+<li>The jals are easy because they use pseudodirect addressing. The jal at address 40 0004hex gets 40 0100hex (the address of procedure B) in its address field, and the jal at 40 0104hex gets 40 0000hex (the address of procedure A) in its address field.</li>
+<li>The load and store addresses are harder because they are relative to a base register. This example uses the global pointer as the base register. Figure 2.13 shows that $gp is initialized to 1000 8000hex. To get the address 1000 0000hex (the address of word X), we place 8000hex in the address field of lw at address 40 0000hex (Because it is 2’s complement). Similarly, we place ­7980hex in the address field of sw at address 40 0100hex to get the address 1000 0020hex (the address of word Y).</li>
+<li>also output an object file</li>
+</ol>
+</blockquote>
+<h3 id="loader">Loader</h3>
+<blockquote>
+<ol>
+<li>Reads the executable file header to determine size of the text and data segments.</li>
+<li>Creates an address space large enough for the text and data.</li>
+<li>Copies the instructions and data from the executable file into memory.</li>
+<li>Copies the parameters (if any) to the main program onto the stack.</li>
+<li>Initializes the machine registers and sets the stack pointer to the first free location. ($sp, $gp, $fp)</li>
+<li>Jumps to a start-up routine.
+<ul>
+<li>copies the parameters into the argument registers  ($a0...) and calls the main routine</li>
+<li>When the main routine returns, the start-up routine terminates the program with an exit system call</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>之前讲了static link， 即before the program is run <em>1. the library routines become part of the executable file 2. it loads all routines in the library that are called anywhere executable</em></p>
+<p>so -&gt; <strong>dynamically linked libraries (DLLs)</strong>: Library routines that are linked to a program during execution.</p>
+<h3 id="dynamic-linking">Dynamic Linking</h3>
+<p>dll: dynamic linking library</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919113501211.png" alt="image-20200919113501211" style="zoom:50%;" />
+<h1 id="topic-4">Topic 4</h1>
+<p>Instructoin coding, how the <strong>assembler and linker</strong> transform into machine code.</p>
+<p>MIPS instruction -&gt; 32 bits words, translated into binary information (machine code)</p>
+<p>first 6 bits -&gt; opcode always, for all three types. Based on this, CPU now what to do.</p>
+<h2 id="r-format">R-format</h2>
+<p>totally 32 bits, can see from the <strong>reference card</strong> ![image-20200928083358704](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928083358704.png)</p>
+<h3 id="instruction-fields">Instruction fields</h3>
+<p>Here is the meaning of each name of the fields in MIPS instructions:</p>
+<ul>
+<li><em>op:</em> Basic operation of the instruction, traditionally called the <strong>opcode</strong>.</li>
+<li><em>rs:</em> The first register source operand.</li>
+<li><em>rt:</em> The second register source operand.</li>
+<li><em>rd:</em> The register destination operand. It gets the result of the operation.</li>
+<li><em>shamt:</em> Shift amount. (Section 2.6 explains shift instructions and this term; it will not be used until then, and hence the field contains zero in this section.) only use when shift, represents the number we want to shift (0-31)</li>
+<li><em>funct:</em> Function. This field, often called the <em>function code,</em> selects the specific variant of the operation in the op field.</li>
+</ul>
+<blockquote>
+<p>add $t0, $s1, $s2</p>
+<p>add: 0 (opcode)</p>
+<p>rs: $s1 (5 -bits store the memory) 10001</p>
+<p>rt: $s2 10010</p>
+<p>rd: $t0 (becasue this is the register destination)01000</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084133611.png" alt="image-20200928084133611" style="zoom:33%;" />
+<p><code>add</code> and <code>sub</code> have the same opcode, use the different <code>func</code> field to distinguish between these two.</p>
+<h2 id="i-format">I-format</h2>
+<p>i- immediate number</p>
+<p>![image-20200928084210292](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084210292.png)</p>
+<p><strong>rt: destination now</strong> however it could also be source (determine by read / write operation)</p>
+<p>rs: source or base address register</p>
+<p>constant / address: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup></mrow><annotation encoding="application/x-tex">-2^{15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{15}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> / offset added to base address in rs</p>
+<p>Read: source register  			 Write: destination</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084346097.png" alt="image-20200928084346097" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084559327.png" alt="image-20200928084559327" style="zoom:33%;" />
+<ul>
+<li></li>
+</ul>
+<pre><code class="language-assembly">sw	$t0, 4($s0) 	# $s0-&gt;rs / $t0 -&gt; rt
+</code></pre>
+<p>read from the register both $s0-&gt;rs $t0-&gt;rt. // no destination register needed</p>
+<p>relative address = (LOOP-PC-4)/4.  // because relative address should have a 32-bits address, so by calculation, we could use relative address (16 bits)</p>
+<ul>
+<li></li>
+</ul>
+<pre><code class="language-assembly">lui		$t0, 255 	# because $t0 is the destination register
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>opcode</th>
+<th>rs</th>
+<th>rt</th>
+<th>Immediate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001111</td>
+<td>00000</td>
+<td>01000</td>
+<td>0000 0000 1111 1111</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li></li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084836733.png" alt="image-20200928084836733" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201005110337077.png" alt="image-20201005110337077" style="zoom:50%;" />
+<h2 id="j-format">J-format</h2>
+<p>![image-20200928085339660](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928085339660.png)</p>
+<p>encode full address in instruction, use 26 bits represent a 32 bits address</p>
+<p>leave the first 4 bits of PC untouched.</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928085659606.png" alt="image-20200928085659606" style="zoom:33%;" />
+<h2 id="addressing-in-branches-and-jumps">Addressing in Branches and Jumps</h2>
+<ul>
+<li>J-type: 6 bits for operation field and the rest of the bits for the address field.</li>
+</ul>
+<p><code>j 10000</code> can be assembled into</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">2</th>
+<th style="text-align:center">10000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6 bits</td>
+<td style="text-align:center">26 bits</td>
+</tr>
+</tbody>
+</table>
+<p>the value of the jump opcode is 2 and the jump address is 10000</p>
+<ul>
+<li>PC-relative addressing</li>
+</ul>
+<p>a branch instruction would calculate: Program counter = Register + Branch address</p>
+<p>for conditional branches: loops and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">if</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span> statements</p>
+<h2 id="decoding-machine-code">Decoding Machine Code</h2>
+<ol>
+<li>converting hex to binary to find <strong>op fields</strong>, determine the operation</li>
+<li></li>
+</ol>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928140704517.png" alt="image-20200928140704517" style="zoom:50%;" />
+<ul>
+<li>
+<p>How to get address</p>
+<ul>
+<li>immediate addressing
+<ul>
+<li>I-type <code>addi $s0, $s1, -1</code></li>
+</ul>
+</li>
+<li>register addressing
+<ul>
+<li>R-type / I-type : all or some operands provided by register IDs directly <code>add $t0, $s0, $s1</code></li>
+</ul>
+</li>
+<li>base addressing
+<ul>
+<li>I-type: operands provided by using base address of memory location <code>lw $t0, 32($s0)</code></li>
+</ul>
+</li>
+<li>PC-relative addressing
+<ul>
+<li>Operands relative to PC, used for near branch <em>target address = PC + 4 + offest * 4</em> , <code>beq $s0, $s1, LESS</code></li>
+</ul>
+</li>
+<li>Pseudodirect addressing
+<ul>
+<li>encode full address in instruction J-type (<code>j</code> and <code>jal</code>) <em>target address = PC[31:28] : address * 4</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>instructions from memory &amp; data from/into RF/memory</em></p>
+  <img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200930114747486.png" alt="image-20200930114747486" style="zoom:33%;" />
+<h1 id="t05">T05</h1>
+<p>Review of Digital Logic</p>
+<p>who to control reading  / writing? do not read / write at the same time -&gt; control signal in RF</p>
+<ul>
+<li>
+<p>memory (access memory is slower than access RF, because of the big circuit of memory, need to decode the address)</p>
+<ul>
+<li>SRAM (Static RAM)</li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930130847535.png?lastModify=1601950411" alt="image-20200930130847535" loading="lazy"></figure>
+<ul>
+<li>DRAM</li>
+</ul>
+<figure data-type="image" tabindex="4"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930131212504.png?lastModify=1601950411" alt="image-20200930131212504" loading="lazy"></figure>
+<p>memory in MIPS</p>
+<p>insturction memory: only read afterwards</p>
+<p>data memory: only one address for read / write</p>
+<figure data-type="image" tabindex="5"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930131317240.png?lastModify=1601950411" alt="image-20200930131317240" loading="lazy"></figure>
+<p>If need write, write first</p>
+</li>
+</ul>
+<h1 id="t06">T06</h1>
+<p>Single Cycle Processor Chapter 4.1-4.4</p>
+<p>■■ The <strong>memory-reference</strong> instructions load word (lw) and store word (sw)</p>
+<p>■■ The <strong>arithmetic-logical</strong> instructions add, sub, AND, OR, and slt</p>
+<p>■■ The instructions <strong>branch</strong> equal (beq) and jump (j), which we add last</p>
+<p>PC is controled by clock signal</p>
+<p>every instruction, needs: send the PC to the memory that contains the code and fetch the instruction from that memory / read one or two registers, using fields of the instruction to select.</p>
+<p><em>state element:</em> a memory element, such as a register or a memory</p>
+<ul>
+<li>clocking methodology: edge-triggered clocking: a clocking scheme in which ass state changes occur on a clock edge. Only state elements can store data value, <strong>any collection of combinational logic must have its inputs come from a set of state elements and its outputs written into a set of state elements</strong>. The inputs are values that were written in a previous clock cycle, while the outputs  are values that can be used in a following clock cycle.</li>
+<li>ALUOp &amp; funct -&gt; ALU Control</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007102736810.png" alt="image-20201007102736810" style="zoom:33%;" />
+<p>​		Generate a 2-bit ALUOp (by CPI controller). With ALUOp and funct field -&gt; ALU control</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007103211448.png" alt="image-20201007103211448" style="zoom:50%;" />
+<blockquote>
+<p>​		that is, using multiple levels of decoding -&gt; reduce the size of the main control unit (opcode before)</p>
+</blockquote>
+<p>The corresponding truth table is as follows, don’t care term all represented with X</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007103747839.png" alt="image-20201007103747839" style="zoom:50%;" />
+<ul>
+<li>
+<p>instruction format</p>
+<p><code>opcode</code> bits [31:26] as Op[5:0]</p>
+<p>Two register be read <code>rs</code> <code>rt</code> [25:21] and [20:16] (R-type, beq, store)</p>
+<p>base register for load and store <code>rs</code> [25:21]</p>
+<p>offset [15:0] (beq, load, store)</p>
+<p>destination register - load: <code>rt</code> [20:16]</p>
+<p>​									- R-type: <code>rd</code> [15:11] -&gt; use a Mux to select</p>
+</li>
+<li>
+<p>usage of seven control lines</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007105307315.png" alt="image-20201007105307315" style="zoom:50%;" />
+</li>
+</ul>
+<p>For R-type, will not use data memory</p>
+<p>lw: read register from register file, ALU calculate the address, read data from data memory, store the data read back to register file</p>
+<p>![image-20201013152850305](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201013152850305.png)</p>
+<h3 id="clocking-methodology">Clocking Methodology</h3>
+<p><code>lw</code> load type instruction will need most time (becasuse of read from data)</p>
+<p><code>beq</code> only read from register and do some calculation, will not cost more time</p>
+<p><em>sigle-cycle processor</em> is not feasible to vary period for differerent instructions</p>
+<p>![image-20201016131205087](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201016131205087.png)</p>
+<p>​	clock cycle time for single-cycle processor will be 800ps, regardless of the instructions’ distribution</p>
+<p>​	execution time is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>100</mn><mo>∗</mo><mn>800</mn><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">100*800ps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span></span></span></span></p>
+<p><em>multi-cycle CPU</em> - FSM: each instruction takes multiple cycles to execute</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201016132709964.png" alt="image-20201016132709964" style="zoom:50%;" />
+<p>​	still which operation will take the longest time - Instr Fetch: 200ps</p>
+<p>​	However, with different distribution, multi-cycle will have different total execution time, some may be worse than single-cycle some may be worse.</p>
+<h1 id="t07">T07</h1>
+<p>Pipelined Processor</p>
+<p>divide the big combinational circuit into five small stages, one step per stage per cycle</p>
+<ol>
+<li>IF:  Instruction fetch</li>
+<li>ID:  Instruction decode and register file read</li>
+<li>EX:  Execution or address calculation</li>
+<li>MEM:  Data memory access</li>
+<li>WB:  Write result back to register</li>
+</ol>
+<p>Single-clock-cycle diagram / multi-clock-cycle diagram</p>
+<p>Instruction-level parallism: multiple instructions exectued at the same time</p>
+<p>execution time for each instruction does not improve (all need to execute the five stages)</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020211402324.png" alt="image-20201020211402324" style="zoom:50%;" />
+<h1 id="t08">T08</h1>
+<p>Data Hazards</p>
+<ul>
+<li>add stalls: nop instructions</li>
+<li>forwarding (bypassing) : use data before it is stored into the register</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020212106089.png" alt="image-20201020212106089" style="zoom:50%;" />
+<p>hazard notation</p>
+<p>1a.  EX/MEM.RegisterRd = ID/EX.RegisterRs</p>
+<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt</p>
+<p>2a.  MEM/WB.RegisterRd = ID/EX.RegisterRs</p>
+<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt</p>
+<ol>
+<li>
+<p>Forwarding in EX stage</p>
+<p>we consider  only  the  challenge  of  forwarding  to  an  operation  in  the  EX  stage,  which  may  be  either an ALU operation or an effective address calculation. (instruction tries to use a register in its EX stage that an earlier instruction intends  to write in its WB stage, we actually need the values as inputs to the ALU. )</p>
+<pre><code>EX hazard 
+if (EX/MEM.RegWrite  // check whether previous a WB to register file needed 
+ and (EX/MEM.RegisterRd ≠ 0)  // check whether we need to change the content of $zero
+ and (EX/MEM.RegisterRd = ID/EX.RegisterRs)) // check whether the destination register need to use for this ALU
+ ForwardA = 10
+
+if (EX/MEM.RegWrite
+ and (EX/MEM.RegisterRd ≠ 0)
+ and (EX/MEM.RegisterRd = ID/EX.RegisterRt)) ForwardB = 10
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020214146582.png" alt="image-20201020214146582" style="zoom:50%;" />
+<blockquote>
+<p>Note  that  the  EX/MEM.RegisterRd  field  is  the  register  destination  for  either  an ALU instruction (which comes from the Rd field of the instruction) or a load  (which comes from the Rt field).</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022085644224.png" alt="image-20201022085644224" style="zoom:50%;" />
+<pre><code>MEM HARZARD
+if (MEM/WB.RegWrite
+	and (MEM/WB.RegisterRd ≠ 0)
+	and not(EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0))
+			and (EX/MEM.RegisterRd ≠ ID/EX.RegisterRs)
+	and (MEM/WB.RegisterRd = ID/EX.RegisterRs)) ForwardA = 01
+
+if (MEM/WB.RegWrite
+	and (MEM/WB.RegisterRd ≠ 0)
+	and not(EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0))
+		and (EX/MEM.RegisterRd ≠ ID/EX.RegisterRt)
+	and (MEM/WB.RegisterRd = ID/EX.RegisterRt)) ForwardB = 01
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022085828078.png" alt="image-20201022085828078" style="zoom:50%;" />
+<p>​	<strong>To select the signed immidiate, add another MUX unit (choose from the output of forward B between signExtend)</strong></p>
+<p>​	<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022090130778.png" alt="image-20201022090130778" style="zoom:50%;" /></p>
+</li>
+</ol>
+<h3 id="load-use-hazard-detection">Load use hazard detection</h3>
+<p><em>If value not computed when needed</em></p>
+<p>$2 is needed in <code>and</code> instruction before it is read from data mem</p>
+<p><img src="/Users/yuxinmiao/Documents/JI/JI2020Fall/VE370/image/image-20201024104037856.png" alt="image-20201024104037856" loading="lazy">*</p>
+<img src="./image/image-20201024103630013.png" alt="image-20201024103630013" style="zoom:50%;" />
+<p>​	Add the stall(bubble) by</p>
+<ul>
+<li>Force control signals in ID/EX register to 0’s (the MUX) (nothing will do with this 0 control signals)</li>
+<li>Prevent the update of PC and IF/ID register <code>PCWrite=0, IF/IDWrite=0 when Hazard=1</code></li>
+</ul>
+<img src="./image/image-20201024103916398.png" alt="image-20201024103916398" style="zoom:50%;" />
+<h1 id="final-review">Final Review</h1>
+<h2 id="pipeline">Pipeline</h2>
+<p>hazard detection unit and forwarding unit are seperate, such that we should not let hazard detection to control whether and which should forwrding</p>
+<img src="./image/image-20201205190723340.png" alt="image-20201205190723340" style="zoom:25%;" />
+<ul>
+<li>
+<p><strong>load-use hazard</strong>. insert bubbles: let control signals in ID/EX registers be zero, EX, MEM, WB stage will do nothing with these zero control signals. Registers value still exist. PC and IF/ID register’s value do not change.  会有EX的data hazard（对nop），但是ineffective，会在下一个MEM hazard的作为下个instruction的值替换</p>
+<p>在下一个instruction为sw时，如有data hazard，为避免stall太多，加一个MemSrc来控制data mem要write的data可以直接来自MEM/WB</p>
+</li>
+<li>
+<p><strong>control hazard</strong>, flush the wrong instruction. When determine branch (including address calculation and whether to branch through comparator) in</p>
+<ul>
+<li><em>ID</em>: IF/ID.Reg.flush</li>
+<li><em>EX</em>: IF/ID.Reg.flush + ID.flush</li>
+<li><em>MEM:</em> IF/ID.Reg.flush + ID.flush + EX.flush</li>
+</ul>
+<p>ID.flush 和 EX.flush 是针对control signal而不是整个register都变为0</p>
+</li>
+<li>
+<p><strong>data hazard for branch</strong> 前一个是R type 必须stall 一个，前一个是lw必须stall 两个。再进行forwarding 到ID ex</p>
+</li>
+<li>
+<p><strong>exception</strong></p>
+</li>
+</ul>
+<h2 id="cache">Cache</h2>
+<p><strong>All data in a memory must also be present in its lower level</strong></p>
+<h3 id="overall">Overall</h3>
+<ul>
+<li>
+<p>Block placement</p>
+</li>
+<li>
+<p>block identification</p>
+<ul>
+<li>for direct map: 通过block index locate，tag只需要比对一次（index是block index）</li>
+<li>for n-way set associative: 通过set index locate，比较所有tag，n次（无block index 只有set index）</li>
+<li>for full associative：search all entries(n times) / lookup table (0 time) （无block/set index）</li>
+</ul>
+</li>
+<li>
+<p>block replacement</p>
+</li>
+<li>
+<p>write strategy</p>
+<p>write through 比起 write back 要cheaper一些，因为check match和write data可以同时进行(saves a step for hit)</p>
+<p>以及可以分别被应用于两个的 write allocation on miss</p>
+<p>write allocate: allocate cache block on miss by fetching corresponding memory block; update cache block; update memory block</p>
+<p>no write allocate: write around(write directly to memory); fetch from memory</p>
+<ul>
+<li>write through 要找到原有的先写到cache里面，再用新的覆盖掉cache里面的然后写入main memory
+<ul>
+<li>write buffer： 针对write through的方法，把要写进memory的data放进buffer里面，CPU接着往下走留着buffer完成之后的工作（cache里面的和buffer一起实时更新，main里面的memory在之后由buffer更新）</li>
+</ul>
+</li>
+<li>write back： keep a dirty bit. When need to replace a block with dirty bit == 1 in the cache, write the block back into main memory first
+<ul>
+<li>write buffer：用于write back则是write into buffer and checking match 同时</li>
+</ul>
+</li>
+</ul>
+<img src="./image/allocation.png" alt="截屏2020-12-07 下午3.02.52" style="zoom:30%;" />
+</li>
+<li>
+<p>Sources of misses 3C model: Compulsory | Capacity | Conflict</p>
+</li>
+</ul>
+<h3 id="points">Points</h3>
+<ul>
+<li>
+<p>principle of locality</p>
+</li>
+<li>
+<p>principle of memory access</p>
+<ul>
+<li>Hit time: time to access a memory, including
+<ul>
+<li>whether hit/miss</li>
+<li>time to pass block to requestor</li>
+</ul>
+</li>
+<li>miss penalty: time to fetch a block from lower level upon a miss, including
+<ul>
+<li>time to access the block</li>
+<li>time to transfer it between levels</li>
+<li>time to overwrite the higher level block</li>
+<li>time to pass block to requestor</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>block size</p>
+<ul>
+<li>larger block should reduce miss rate (spatial locality)</li>
+</ul>
+</li>
+</ul>
+<h4 id="difference-types-of-cache">Difference types of cache</h4>
+<p>word offset 是针对一个block里面的word数量决定</p>
+<p>并不是改了cache内容就dirty了！是一个block里面的数被sw/sb改掉了</p>
+<p>all blocks in a set must be searched (tag search in parallel + extra hardware &amp; access (hit) time )</p>
+<h5 id="directed-mapped-cache">directed mapped cache:</h5>
+<ul>
+<li>byte address = word address (block address(tag + block index) + word offset) + byte offset</li>
+<li>cache consists of (valid bit + tag + data)</li>
+</ul>
+<p>word offset由一个block里面有多少word决定 （但transfer要一个block一起transfer，于是会有hit due to spatial locality）可以用除法来表示舍弃之后几位（除以4就是舍掉最后两位，比如offset）<img src="../../../../Library/Application Support/typora-user-images/截屏2020-12-07 下午2.34.05.png" alt="截屏2020-12-07 下午2.34.05" style="zoom:50%;" /></p>
+<p><img src="截屏2020-12-07 下午2.35.56.png" alt="截屏2020-12-07 下午2.35.56" style="zoom:30%;" />、</p>
+<h5 id="n-way-set-associative-cache-需要set-index但access一个set中的block必须compare-n次">N-way set associative cache: 需要set index，但access一个set中的block必须compare N次</h5>
+<p>byte address = word address (block address(tag + set index) + word offset) + byte offset</p>
+<h5 id="full-associative-cache">Full-associative cache</h5>
+<p>一个block可以去任意一个cache entry，comparator的数量就是cache size, no index</p>
+<ul>
+<li>
+<p>byte address = word address (block address(tag) + word offset) + byte offset</p>
+</li>
+<li>
+<p>Average Memory Access Time (AMAT): hit time + miss rate * miss penalty</p>
+</li>
+<li>
+<p>reduce miss penalty: early start / critical word first 可能要再看</p>
+</li>
+<li>
+<p>increase associativity decrease miss rate (with diminishing improvement)</p>
+</li>
+<li>
+<p>multiple caches时的</p>
+</li>
+<li>
+<p>LRU 要keep reference bit 对于high associativity: complex and costly hardware</p>
+</li>
+</ul>
+<h2 id="virtual-memory">Virtual Memory</h2>
+<ul>
+<li>
+<p>VM block is called a <strong>page</strong>, VM miss is called a page fault</p>
+<ul>
+<li>
+<p>virtual address some maps to physical address, some to disk address, through address translation</p>
+</li>
+<li>
+<p>physical address usually smaller than virtual address</p>
+</li>
+<li>
+<p>n to one map</p>
+</li>
+<li>
+<p>page fault: page is not present in memory, the page must be fetched from disk</p>
+</li>
+</ul>
+</li>
+<li>
+<p>virtual address = virtual page number + page offset</p>
+<ul>
+<li>Processor always provide virtual address</li>
+<li>page offset: eg. 12bits -&gt; 4K byte page size</li>
+<li>virtual page numebr translated into physical page number, while physical always be larger</li>
+<li>virtual page number used as tag when TLB hit &amp; used as page table index when TLB miss to access page table</li>
+</ul>
+</li>
+<li>
+<p>Translator - Page Table (for each program)</p>
+<ul>
+<li>Store all mapping &amp; indexed by virtual page numbers &amp; located in main</li>
+<li>page table register</li>
+</ul>
+</li>
+<li>
+<p>Translation Look-aside Buffer (TLB) - fast cache of page table within CPU</p>
+<ul>
+<li>Page table -&gt; TLB == main -&gt; cache</li>
+<li>a subset of page table</li>
+<li>full associativity: to lower miss rate (because for small TLB, access time not a major concern)</li>
+<li>LRU (need to keep a reference bit) or random replacement</li>
+<li>physical address will be pointed by both TLB and page table</li>
+</ul>
+</li>
+<li>
+<p>TLB miss: cache tag (comparison) + valid bit  |  Page Fault: by page table valid bit (no comparison)</p>
+<ul>
+<li>TLB miss:
+<ul>
+<li>TLB is full: ref bit and dirty bit of <strong>replaced entry should be copied back to page table</strong>, but not for valid bit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Page write: disk write takes millions of time ! 不可以write through</p>
+<ul>
+<li>page table always write back ! (dirty bit in page table)</li>
+<li>write an entire page is more efficient than write a word</li>
+</ul>
+</li>
+<li>
+<p>TLB and cache interaction：还要再看</p>
+<ul>
+<li>for physically addressed cache <img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201208211559726.png" alt="image-20201208211559726" style="zoom:30%;" />
+<ul>
+<li>Virtual addr -&gt; TLB -&gt; provide physical address to cache (may have longer time because TLB on critical path)</li>
+<li><img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201209194505038.png" alt="image-20201209194505038" style="zoom:50%;" /> The cache is physical address, (cache index and tag are both physical )</li>
+</ul>
+</li>
+<li>virtually addressed cache: 只有在cache miss的时候需要将virtual address翻译成physical address
+<ul>
+<li>complications due to aliasing</li>
+<li>This ambiguity would allow one program to write the data without the other program being aware that the data had changed. Completely virtually addressed caches either introduce design limitations on the cache and TLB to reduce aliases or require the operating system, and possibly the user, to take steps to ensure that aliases do not occur.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="overall-framework">Overall Framework</h2>
+<img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201209202108111.png" alt="image-20201209202108111" style="zoom:50%;" />
+<p><strong>conflict miss</strong> Also called collision miss. A cache miss that occurs in a set­associative or direct­ mapped cache when multiple blocks compete for the same set and that are eliminated in a fully associative cache of the same size. <strong>not exist for full-associativity cache</strong></p>
+<p>再看一下书上的判断题/可能的多选题/page table那几个书上的题</p>
+<ul>
+<li>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: No such environment: equation at position 7: \begin{̲e̲q̲u̲a̲t̲i̲o̲n̲}̲
+\begin{aligned…'>\begin{equation}
+\begin{aligned}
+\rm{\textbf{CPU Time}}&amp;=\rm{CPU\ Clock\ Cycles\ per\ program \times Clock\ Cycle\ Time}\\[2ex]
+ &amp;=\frac{\rm{CPU\ Clock\ Cycles}}{\rm{Clock \ Rate}} \\[2ex]
+ &amp;= \frac{\rm{IC}\times \rm{CPI}}{\rm{Clock\ Rate}} \\[2ex]
+ &amp;= \frac{\rm{Instructions}}{\rm{Programs}} \times \frac{\rm{Clock\ Cycles}}{\rm{Instruction}} \times \frac{\rm{Seconds}}{\rm{Clock\ Cycles}}
+\end{aligned}
+\end{equation}</p>
+</li>
+<li>
+<p><strong>ISA</strong>: Instruction Set Architecture</p>
+</li>
+<li>
+<p>Instruction count: <strong>IC</strong> (由program, ISA, complier 决定)</p>
+</li>
+<li>
+<p>Clock Cycle per Instruction: <strong>CPI</strong></p>
+</li>
+<li>
+<p>Clock Cycles = IC * CPI</p>
+</li>
+</ul>
+<blockquote>
+<p>momorize the equation</p>
+<p>GHz = <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn><msup><mn>0</mn><mn>9</mn></msup></mrow><annotation encoding="application/x-tex">10^9</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">9</span></span></span></span></span></span></span></span></span></span></span></p>
+</blockquote>
+<h1 id="chapter-2-2">Chapter 2</h1>
+<p center> **Operation and Operands ** </p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918202135979.png" alt="image-20200918202135979" style="zoom:50%;" />
+<pre><code class="language-bash"># c language 
+# need preprocessor 
+gcc -E test.c &gt; test.i
+
+gcc -S test.s # obtain test.s
+gcc -c test.c # obtain test.o, which is machine code to read $ hexdump text.o
+/*or*/
+hexdump -C test.c # to show ASCII 
+gcc test.o -o test # obtain executable machine code test 
+# so gcc could followed by test.c or test.o
+
+</code></pre>
+<ul>
+<li>Instruction Set
+<ul>
+<li>RISC: reduced instruction set computer</li>
+<li>CISC: complex instruction set computer</li>
+</ul>
+</li>
+</ul>
+<p>MIPS Instruction Set</p>
+<p>Design Principle</p>
+<ol>
+<li>Simplicity favors regularity.</li>
+<li>Smaller is faster</li>
+<li>Make the common case faster</li>
+</ol>
+<h2 id="register-operands-2">Register Operands</h2>
+<p>MIPS architecture has a 32*32-bit register file</p>
+<blockquote>
+<p>$zero: constant 0 (reg 0, also written as 0)<br>
+$at: Assembler Temporary (reg 1, or 1)<br>
+$v0, v1: result values (reg’s 2 and 3, or 2 and 3); use value for function result<br>
+$a0 – a3: arguments (reg’s 4 – 7, or 4 - 7)<br>
+$t0 – t7: temporaries (reg’s 8 – 15, or 8 - 15); can be overwritten by callee<br>
+$s0 – s7: saved (reg’s 16 – 23, or 16 - 23); be saved/restored by callee<br>
+$t8, t9: temporaries (reg’s 24 and 25, or 24 and 25)<br>
+$k0, k1: reserved for OS kernel (reg’s 26 and 27, 26/27)</p>
+<p>$gp: global pointer for static data (reg 28, or 28)<br>
+$sp: stack pointer (reg 29, or 29)<br>
+$fp: frame pointer (reg 30, or 30)<br>
+$ra: return address (reg 31, or $31)</p>
+</blockquote>
+<pre><code class="language-assembly">lw rt, offset(rs)# offset should be 4*(an integer) offset: a 16-bits 2's complement number
+
+
+## Byte/Halfword Operations R[rt] = Mem[R[rs] + signExtensionOffest] 为32bits与16bits相加##
+lb rt, offset(rs) # offset could be any integer (-2 is okey)
+lh rt, offset(rs # repeat the sign bit
+
+lbu rt, offset(rs) # for unsigned byte; 
+lhu rt, offset(rs) # repeat zero
+
+sb rt, offset(rs) 
+sh rt, offset(rs)
+
+</code></pre>
+<h2 id="memory-operands-2">Memory Operands</h2>
+<ul>
+<li>
+<p>mainly for composite data (arrays, structures, dynamic data)</p>
+</li>
+<li>
+<p>steps</p>
+<ul>
+<li><code>lw</code>: from memory into registers</li>
+<li>perfrom arithmetic operations with registers</li>
+<li><code>sw</code>: from register back to memory</li>
+</ul>
+</li>
+<li>
+<p>Byte addressable - each address identifies a 8-bit byte</p>
+</li>
+<li>
+<p>organized in word</p>
+</li>
+<li>
+<p>Big/little Endian: MIPS is big Endian</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918185859922.png" alt="image-20200918185859922" style="zoom:50%;" />
+</li>
+</ul>
+<pre><code class="language-c">g = h + A[8]
+</code></pre>
+<p>h in $s2, base address of A in $s3</p>
+<h3 id="load-word-2">load word</h3>
+<p>from the content in register ($s3), the content + offset (32), is the address of the content need to be loaded.</p>
+<p>The content in the address ( Reg[$s3]) + offset (32)) is loaded in $t0</p>
+<p><code>$t0</code> load in the content in this address. Content: A[8]</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917162604239.png" alt="image-20200917162604239" style="zoom:50%;" />
+<h3 id="store-word-2">Store Word</h3>
+<pre><code class="language-assembly">lw $t0, 32($s3)
+add $t0, $s2, $t0
+sw $t0, 48($s3) 
+</code></pre>
+<p>Store the content in $t0, into the content of the address (content in $s3 + 48)</p>
+<p>![image-20200917162852822](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917162852822.png)</p>
+<ul>
+<li>
+<p>difference between <code>lb</code> and <code>lbu</code></p>
+<p><code>lb</code>: load byte; R[rt] = SignExt(M[R[rs]+SignExtImm])</p>
+<p><code>lbu</code>: load byte unsigned; R[rt] = {24b'0,M[R[rs]+SignExtImm] (7:0)}</p>
+</li>
+</ul>
+<h2 id="immediate-operands-constant-2">Immediate Operands (constant)</h2>
+<p><code>sll</code> by i bits = multiply by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">2^i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span></p>
+<p><code>srl</code> by i bits = divides by <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>i</mi></msup></mrow><annotation encoding="application/x-tex">2^i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span></span></span></span></span></span></span></span> (unsigned only)</p>
+<h3 id="load-32-bits-constant-2">load 32-bits constant</h3>
+<ul>
+<li><code>lui rt, constant</code>
+<ul>
+<li>copies 16-bit constant to left 16 bits of rt</li>
+<li>clear right 16-bits of rt to 0</li>
+</ul>
+</li>
+<li><code>ori $t0, $t0, 0x....</code> $t1 = $t2| ZeroExtImm</li>
+</ul>
+<pre><code class="language-assembly"># load 0x56781234 to register $s3
+lui $s3, 0x5678
+ori $s3, $s3, 0x1234
+</code></pre>
+<p>For the number stored in a byte if its value is larger than <strong>(10000000) or(80)hex</strong>. If we want to load its original value to a new register, we need to use <code>lbu</code>. If we use lb at this time, the value stored in the new register will be negative.</p>
+<h2 id="iffor-2">If/For</h2>
+<p>no <code>blt</code>, <code>bge</code>, <code>ble</code>, <code>bgt</code></p>
+<p><code>beq</code>, <code>bne</code> common; combined with <code>slt</code>, <code>slti</code>, <code>sltiu</code></p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918204354042.png" alt="image-20200918204354042" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918204439309.png" alt="image-20200918204439309" style="zoom:33%;" />
+<h2 id="bytehalfword-operations-2">Byte/Halfword Operations</h2>
+<pre><code class="language-assembly"># i.e. load in byte 0xFA
+/*Signed, with sign extension*/
+	lb rt, offset(rs)		# offset could be any integer;in rt 0xFFFFFFFA
+	lh rt, offset(rs)
+/*Unsigned, with zero extension*/
+	lbu rt, offset(rs)		# offset could be any integer; in rt 0x000000FA
+	lhu rt, offset(rs)
+</code></pre>
+<p><font color=#CD5C5C>有时候要注意offset是否要乘4，如果array是存储的bytes而不是words，则不需要乘4</font></p>
+<h2 id="assembly-language-2">Assembly Language</h2>
+<p>Example.c</p>
+<pre><code class="language-c">int add_a_and_b(int a, int b) {
+   return a + b;
+}
+
+int main() {
+   return add_a_and_b(2, 3);
+}
+</code></pre>
+<p>转化为汇编语言</p>
+<pre><code>$ gcc -S example.c
+</code></pre>
+<p>**arm! but not mips **</p>
+<p>example.s</p>
+<pre><code class="language-assembly">_add_a_and_b: # 并不是标准命令
+   push   %ebx
+   mov    %eax, [%esp+8] 
+   mov    %ebx, [%esp+12]
+   add    %eax, %ebx 
+   pop    %ebx # pop会将ESP寄存器中地址加4
+   ret  # 当前函数frame被回收
+
+_main:
+   push   3  # push: CPU指令，将运算子放入stack，即3写入main这个frame
+   push   2 # push会将ESP寄存器中地址减4
+   call   _add_a_and_b # call：调用函数
+   add    %esp, 8
+   ret
+</code></pre>
+<p>从<code>_main</code>开始执行，在stack上为main建立一个frame（帧）,stack所指向的地址写入ESP寄存器。数据若要写入main这个frame，则写在ESP寄存器所保存的地址。stack：从高位向地位发展。ESP中地址减去四个字节（int）后，新地址写入ESP</p>
+<figure data-type="image" tabindex="6"><img src="http://www.ruanyifeng.com/blogimg/asset/2018/bg2018012216.png" alt="bg2018012216" loading="lazy"></figure>
+<h1 id="chapter-3-2">Chapter 3</h1>
+<p><strong>Function</strong></p>
+<p>program stored in memory , instructions represented in binary, like data. <em>Each instruction is stored as a word in PC, so 0:0, 4:100, 8: 1000</em>, all the instruction will be ended with 2’b0.</p>
+<h2 id="program-counter-2"><strong>program counter</strong></h2>
+<p>(PC) (instruction address register)</p>
+<ul>
+<li>address of the instruction is sotred in PC</li>
+<li>32 bits register</li>
+<li>a special register in CPU (not same as the registers in register file)</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917145047483.png" alt="image-20200917145047483" style="zoom:30%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917153557980.png" alt="image-20200917153557980" style="zoom:40%;" />
+<h2 id="function-calling-2">function calling</h2>
+<blockquote>
+<p>Similarly, in the execution of a procedure, the program must follow these six steps:</p>
+<ol>
+<li>Put parameters in a place where the procedure can access them.</li>
+<li>Transfer control to the procedure.</li>
+<li>Acquire the storage resources needed for the procedure.</li>
+<li>Perform the desired task.</li>
+<li>Put the result value in a place where the calling program can access it.</li>
+<li>Return control to the point of origin, since a procedure can be called from several points in a program.</li>
+</ol>
+</blockquote>
+<h3 id="function-call-instructions-2">Function call instructions</h3>
+<ul>
+<li>
+<p><em>Function call operation</em>:  jump-and-link instruction <code>jal FunctionLabel</code> (J-type)</p>
+<p>An instruction that jumps to an address and simultaneously saves the address of the following instruction in a register ($ra in MIPS).</p>
+<ul>
+<li>$ra = PC+4 (the address of following instruction)</li>
+<li>PC = Addr(function label)</li>
+</ul>
+</li>
+<li>
+<p><em>Function return operation</em>: jump register <code>jr $ra</code> (R-type)</p>
+<ul>
+<li>PC = $ra; Copies $ra to program counter</li>
+</ul>
+</li>
+<li>
+<p>return address</p>
+<p>A link to the calling site that allows a procedure to return to the proper address;</p>
+<p>in MIPS it is stored in register $ra.</p>
+</li>
+<li>
+<p>caller: The program that instigates a procedure and provides the necessary parameter values.</p>
+</li>
+<li>
+<p>Callee: A procedure that executes a series of stored instructions based on parameters provided by the caller and then returns control to the caller.</p>
+</li>
+<li>
+<p><strong>stack pointer</strong> ($sp)</p>
+</li>
+<li>
+<p>pointing to the <strong>top of the stack</strong></p>
+<ul>
+<li>By mean top, not mean when adding more items, the address of $sp would not become larger, but it should be subtracion.</li>
+</ul>
+</li>
+<li>
+<p>frame pointer ($fp)</p>
+</li>
+</ul>
+<p>a frame pointer offers a stable base register within a procedure for local memory-references. as $sp might change</p>
+<h3 id="leaf-function-2">leaf function</h3>
+<blockquote>
+<p>Eg1: see swap</p>
+</blockquote>
+<p>function that don’t call other functions</p>
+<pre><code class="language-assembly">addi $sp, $sp, -12 # create spaces in stack
+sw $t1, 8($sp) # store data on stack
+sw $t0, 4($sp) # actually, no need to operate on $t0 and $t1
+sw $s0, 0($sp)
+....
+
+lw $s0, 0($sp) # restore data from stack
+lw $t0, 4($sp)
+lw $t1, 8($sp)
+addi $sp, $sp, 12 # destroy spaces on stack
+jr $ra # return from function
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200917215149676.png" alt="image-20200917215149676" style="zoom:40%;" />
+<h3 id="non-leaf-funciton-2">Non-leaf funciton</h3>
+<blockquote>
+<p>Eg2: see sort</p>
+</blockquote>
+<p>function that calls other functions</p>
+<p>For nested call, caller need to save on the stack</p>
+<ol>
+<li>
+<p>its return address</p>
+</li>
+<li>
+<p>any arguments and temporaries needed after the call</p>
+</li>
+</ol>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200918091228677_副本.png" alt="image-20200918091228677" style="zoom:50%;" />
+<pre><code class="language-c">int fact (int n) {
+  if (n &lt; 1) return f;
+  else return n * fact(n - 1)
+}
+</code></pre>
+<p>argument n in $a0, result in $v0</p>
+<pre><code class="language-assembly">fact: 
+		addi $sp, $sp, -8
+		sw $ra, 4($sp)
+		sw $a0, 0($sp)
+		slti $t0, $a0, 1
+		beq $t0, $zero, L1 # the label tells where to go, such that L1 should have the address 
+		addi $v0, $zero, 1
+		addi $sp, $sp, 8
+		jr $ra
+L1: 
+		addi $a0, $a0, -1
+		jal fact
+		lw $a0, 0($sp)
+		lw $ra, 4($sp)
+		addi $sp, $sp, 8
+		mul $v0, $a0, $v0
+		jr $ra
+
+</code></pre>
+<h2 id="function-calling-convention-2">Function Calling Convention</h2>
+<p>do not follow convention not mean syntax error, but highly likely to create error</p>
+<p>when to apply</p>
+<ul>
+<li>
+<p>immediatly before the function is called</p>
+<ul>
+<li>pass arguments to $a0 - $a3 (more arguments on stack, addressable via $fp)</li>
+<li>save register that should be saved by caller ( i.e. $a0 - $a3  non-leaf function)</li>
+<li><code>jal</code></li>
+</ul>
+</li>
+<li>
+<p>in function, but before it starts executing</p>
+<ul>
+<li>allocate memory of frame’s size (moving $sp downwards)</li>
+<li>Save registers that should be saved by the function in the frame, before they are overwritten ($s0-$s7 (if to be used), $fp (if used), ​$ra (non- leaf function))</li>
+<li>Establish $fp (if desired), $fp = $sp + frame’s size - 4</li>
+</ul>
+</li>
+<li>
+<p>immediatly before the funtion finishes</p>
+<ul>
+<li>if necessary, place the function result to $v0, $v1</li>
+<li>Restore registers saved by the function (pop from frame)</li>
+<li>destroy stack frame (by moving $sp upwards)</li>
+<li><code>jr $ra</code></li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200920130607592.png" alt="image-20200920130607592" style="zoom:67%;" />
+</li>
+</ul>
+<h2 id="example-2">Example</h2>
+<p>When translate from C to assembly language</p>
+<blockquote>
+<ol>
+<li>Allocate registers to program variables.</li>
+<li>Produce code for the body of the procedure.</li>
+<li>Preserve registers across the procedure invocation.</li>
+</ol>
+</blockquote>
+<ul>
+<li><code>swap</code></li>
+</ul>
+<pre><code class="language-c">void swap(int v[], int k) {
+	int temp;
+	temp = v[k]; 
+  v[k] = v[k+1]; 
+  v[k+1] = temp;
+}
+</code></pre>
+<pre><code>1. program argument: `$a0, $a1 -&gt; v, k` 		temporary variable: `$t0 -&gt; temp`
+</code></pre>
+<ol start="2">
+<li>
+<pre><code class="language-assembly">/*procedure body*/
+swap: sll $t1, $a1, 2 # $t1 = k * 4
+      add $t1, $a0, $t1 # t1 = v + k * 4, the address of v[k]
+      
+      lw $t0, 0($t1) # $t1 (temp) = v[k]; load the content in address 0($t1) to the content oof $t0
+      lw $t2, 4($t1) # $t2 = v[k+1];
+      
+      sw $t2, 0($t1) # v[k] = v[k+1]; store the content in $t2 to thr content in address 0($t1)
+      sw $t0, 4($t1) # v[k+1] = temp;
+/*procedure return*/
+      jr $ra
+</code></pre>
+</li>
+</ol>
+<ul>
+<li><code>sort</code></li>
+</ul>
+<pre><code class="language-c">void sort (int v[], int n) {
+  int i, j;
+  for (i = 0; i &lt; n; i += 1) {
+  	for (j = i – 1; j &gt;= 0 &amp;&amp; v[j] &gt; v[j + 1]; j -= 1) { 
+      swap(v,j);
+  	} 
+  }
+}
+</code></pre>
+<p>Problem: <code>sort</code> needs the value in $a0 and $a1, <code>swap</code> need to have the parameters placed in those same registers.</p>
+<p>v in $a0, n in $a1, i in $s0, j in $s1</p>
+<pre><code class="language-assembly">sort:
+		addi $sp, $sp, -20
+		sw $ra, 16($sp)
+		sw $s3, 12($sp)
+		sw $s2, 8($sp)
+		sw $s1, 4($sp)
+		sw $s0, 0($sp)
+		add $s2, $a0, $zero	# $s2 = BA of v
+		add $s3, $a1, $zero	# s3 = n
+		add $s0, $zero, $zero	# i = 0
+for1tst: 
+		slt $t0, $s0, $s3
+		beq $t0, $zer0, exit1 # when i &gt;= n, exit the first loop
+		addi $s1, $s0, -1 # j = i - 1
+for2tst:
+		slt $t0, $s1, 0
+		bne $t0, $zero, exit2 # when j &lt; 0 exit the second loop
+		sll $t1, $s1, 2 # $t1 = j*4
+		add $t2, $t1, $s2 # t2: the address of v[j]; v + j * 4
+		lw $t3, 0($t2) # v[j]
+		lw $t4, 4($t2) # v[j + 1]
+		sll $t0, $t4, $t3
+		beq $t0, $zero, exit2 # v[j] &lt; v[j + 1]
+		add $a0, $s2, $zero # prepare for the paramete needed for next function call swap
+		add $a1, $s1, $zero
+		jal swap
+		addi $s1, $s1, -1
+		j for2tst
+exit2: 
+		addi $s0, $s0, 1 #i+=1
+		j for1tst
+exit1: 
+	 lw $s0, 0($sp)
+	 lw $s1, 4($sp)
+	 lw $s2, 8($sp)
+	 lw $s3, 12($sp)
+	 lw $ra, 16($sp)
+	 addi $sp, $sp, 12
+	 jr $ra 							# return to calling routine 
+</code></pre>
+<ul>
+<li><code>fib</code></li>
+</ul>
+<pre><code class="language-c">int fib(int n) {
+  if (n &lt; 3)
+    return 1;
+  else 
+    return fib(n-1) + fib(n-2); 
+}
+</code></pre>
+<pre><code class="language-assembly">fib:
+	addi 	$sp, $sp, -12
+	sw		$s0, 8($sp)
+	sw 		$a0, 4($sp)
+	sw		$ra, 0($sp)
+	slti	$t0, $a0, 3
+	beq		$t0, $zero, else
+	# lw		$ra, 0($sp) unnecessary load here 
+	# lw		$a0, 4($sp)
+	addi	$sp, $sp, 12 
+	addi	$v0, $zero, 1
+	jr		$ra
+
+else:
+	lw		$ra, 0($sp)
+	lw		$a0, 4($sp)
+	addi 	$a0, $a0, -1
+	jal	 	fib
+
+	add	 	$s0, $v0, $zero	# we need $s0 to store the value so adjust the stack for 3 items 
+	sw 		$a0, 4($sp)
+	sw		$ra, 0($sp)
+	addi 	$a0, $a0, -2
+	jal 	fib
+	addi 	$t1, $v0, 0
+	lw		$ra, 0($sp)
+	lw		$a0, 4($sp)
+	addi	$sp, $sp, 8
+	add		$v0, $t1, $t0
+	jr 		$ra
+</code></pre>
+<pre><code class="language-assembly"># VE370 2020FA RC Week 3
+# Class exercise: fib
+# Author: Li Shi
+
+# Important note: 
+#   This program is written in Linux, and executed by
+#     1. spim -bare
+#     2. (spim) read &quot;fib.s&quot;
+#     3. (spim) run
+#   You may need to modify this program to execute in PCSpim.
+
+.text
+
+main:
+  addi  $a0,  $0,   8
+  jal   fib                 # Call fib(8)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $a0,  $v0,  0       # Print fib(8)
+  addi  $v0,  $0,   1       
+  syscall
+  addi  $v0,  $0,   10      # System call 10 (exit)
+  syscall                   # Exit
+
+fib:
+  addi  $sp,  $sp,  -12     # Allocate the stack frame
+  sw    $ra,  8($sp)
+  sw    $a0,  4($sp)
+  sw    $s0,  0($sp)        # We will use $s0 later
+  slti  $t0,  $a0,  3       # Test for n &lt; 3
+  beq   $t0,  $0,   elseBlock
+  addi  $v0,  $0,   1       # return 1 
+  addi  $sp,  $sp,  12 
+  jr    $ra
+  add   $t0,  $t0,  $0      # Delay
+
+elseBlock:
+  addi  $a0,  $a0,  -1
+  jal   fib                 # fib(n-1)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $s0,  $v0,  0       # Q: What is $s0 used for?
+  addi  $a0,  $a0,  -1
+  jal   fib                 # fib(n-2)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  add   $v0,  $v0,  $s0     # return fib(n-1)+fib(n-2)
+  lw    $s0,  0($sp)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  lw    $a0,  4($sp)
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  lw    $ra,  8($sp)    
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  addi  $sp,  $sp,  12      # Pop the stack
+  add   $t0,  $t0,  $0      # Delay
+  add   $t0,  $t0,  $0      # Delay
+  jr    $ra
+  add   $t0,  $t0,  $0      # Delay
+
+</code></pre>
+<h2 id="template-2">Template</h2>
+<ul>
+<li>if ($s0 &lt; $s1) { ... } else { ... }</li>
+</ul>
+<pre><code class="language-assembly">      slt $t0, $s0, $s1
+      beq $t0, $zero, else 
+      ....
+      j elseExit ## remember to jump out when finish if 
+else: ....
+elseExit: 
+</code></pre>
+<ul>
+<li>for ($t0 = 0; $t0 &lt; $a1; $t0++) { ... }</li>
+</ul>
+<pre><code class="language-assembly">Loop:
+		add $t0, $zero, $zero
+		slt $t1, $t0, $a1
+		beq $t1, $zero, exit
+		...
+		addi $t0, $t0, 1
+		j Loop
+exit:
+</code></pre>
+<h2 id="translation-and-startup-2">Translation and Startup</h2>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919103108277.png" alt="image-20200919103108277" style="zoom:33%;" />
+<h3 id="complier-2">Complier</h3>
+<p>tansform the C program into an assembly language program (a symbolic form of waht the machine understands)</p>
+<h3 id="assembler-2">assembler</h3>
+<blockquote>
+<p>To produce the binary version of each instruction in the assembly language program, the assembler must determine the addresses corresponding to all labels. Assemblers keep track of labels used in branches and data transfer instructions in a <strong>symbol table</strong>. As you might expect, the table contains pairs of symbols and addresses.</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919104550827.png" alt="image-20200919104550827" style="zoom:33%;" />
+<p><strong>producing an object module</strong></p>
+<p>Example</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919105156829.png" alt="image-20200919105156829" style="zoom:33%;" />
+<p>​			- In the object file:</p>
+<blockquote>
+<p>the instructions in assembly language just to make the example understandable; in reality, the instructions would be numbers.</p>
+</blockquote>
+<p>​		<em>Note that the address and symbols that must be updated in the link process is higlighted</em>:</p>
+<pre><code>			1. the instructions that refer to the address of procedures $A$ and $B$
+
+			2. the instructions that refers to the data word $X$ and $Y$
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919105719045.png" alt="image-20200919105719045" style="zoom:50%;" />
+<h3 id="linker-2">linker</h3>
+<p>Also called link editor. A systems program that combines independently assembled machine language programs and resolves all undefined labels into an <strong>executable file</strong>.</p>
+<ol>
+<li>
+<p>merge segments</p>
+</li>
+<li>
+<p>resolve labels (determine their address)</p>
+</li>
+<li>
+<p>patch location-dependent and external reference</p>
+</li>
+</ol>
+<p><strong>example of linked objects</strong></p>
+<p>Object is already machine language, but no memory has been traslated (the translator do not know about)</p>
+<blockquote>
+<p>the text segment starts at address 40 0000hex and the data segment at 1000 0000hex.</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919111236159.png" alt="image-20200919111236159" style="zoom:50%;" />
+<blockquote>
+<ol>
+<li>The jals are easy because they use pseudodirect addressing. The jal at address 40 0004hex gets 40 0100hex (the address of procedure B) in its address field, and the jal at 40 0104hex gets 40 0000hex (the address of procedure A) in its address field.</li>
+<li>The load and store addresses are harder because they are relative to a base register. This example uses the global pointer as the base register. Figure 2.13 shows that $gp is initialized to 1000 8000hex. To get the address 1000 0000hex (the address of word X), we place 8000hex in the address field of lw at address 40 0000hex (Because it is 2’s complement). Similarly, we place ­7980hex in the address field of sw at address 40 0100hex to get the address 1000 0020hex (the address of word Y).</li>
+<li>also output an object file</li>
+</ol>
+</blockquote>
+<h3 id="loader-2">Loader</h3>
+<blockquote>
+<ol>
+<li>Reads the executable file header to determine size of the text and data segments.</li>
+<li>Creates an address space large enough for the text and data.</li>
+<li>Copies the instructions and data from the executable file into memory.</li>
+<li>Copies the parameters (if any) to the main program onto the stack.</li>
+<li>Initializes the machine registers and sets the stack pointer to the first free location. ($sp, $gp, $fp)</li>
+<li>Jumps to a start-up routine.
+<ul>
+<li>copies the parameters into the argument registers  ($a0...) and calls the main routine</li>
+<li>When the main routine returns, the start-up routine terminates the program with an exit system call</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>之前讲了static link， 即before the program is run <em>1. the library routines become part of the executable file 2. it loads all routines in the library that are called anywhere executable</em></p>
+<p>so -&gt; <strong>dynamically linked libraries (DLLs)</strong>: Library routines that are linked to a program during execution.</p>
+<h3 id="dynamic-linking-2">Dynamic Linking</h3>
+<p>dll: dynamic linking library</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200919113501211.png" alt="image-20200919113501211" style="zoom:50%;" />
+<h1 id="topic-4-2">Topic 4</h1>
+<p>Instructoin coding, how the <strong>assembler and linker</strong> transform into machine code.</p>
+<p>MIPS instruction -&gt; 32 bits words, translated into binary information (machine code)</p>
+<p>first 6 bits -&gt; opcode always, for all three types. Based on this, CPU now what to do.</p>
+<h2 id="r-format-2">R-format</h2>
+<p>totally 32 bits, can see from the <strong>reference card</strong> ![image-20200928083358704](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928083358704.png)</p>
+<h3 id="instruction-fields-2">Instruction fields</h3>
+<p>Here is the meaning of each name of the fields in MIPS instructions:</p>
+<ul>
+<li><em>op:</em> Basic operation of the instruction, traditionally called the <strong>opcode</strong>.</li>
+<li><em>rs:</em> The first register source operand.</li>
+<li><em>rt:</em> The second register source operand.</li>
+<li><em>rd:</em> The register destination operand. It gets the result of the operation.</li>
+<li><em>shamt:</em> Shift amount. (Section 2.6 explains shift instructions and this term; it will not be used until then, and hence the field contains zero in this section.) only use when shift, represents the number we want to shift (0-31)</li>
+<li><em>funct:</em> Function. This field, often called the <em>function code,</em> selects the specific variant of the operation in the op field.</li>
+</ul>
+<blockquote>
+<p>add $t0, $s1, $s2</p>
+<p>add: 0 (opcode)</p>
+<p>rs: $s1 (5 -bits store the memory) 10001</p>
+<p>rt: $s2 10010</p>
+<p>rd: $t0 (becasue this is the register destination)01000</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084133611.png" alt="image-20200928084133611" style="zoom:33%;" />
+<p><code>add</code> and <code>sub</code> have the same opcode, use the different <code>func</code> field to distinguish between these two.</p>
+<h2 id="i-format-2">I-format</h2>
+<p>i- immediate number</p>
+<p>![image-20200928084210292](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084210292.png)</p>
+<p><strong>rt: destination now</strong> however it could also be source (determine by read / write operation)</p>
+<p>rs: source or base address register</p>
+<p>constant / address: <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup></mrow><annotation encoding="application/x-tex">-2^{15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span> to <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{15}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> / offset added to base address in rs</p>
+<p>Read: source register  			 Write: destination</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084346097.png" alt="image-20200928084346097" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084559327.png" alt="image-20200928084559327" style="zoom:33%;" />
+<ul>
+<li></li>
+</ul>
+<pre><code class="language-assembly">sw	$t0, 4($s0) 	# $s0-&gt;rs / $t0 -&gt; rt
+</code></pre>
+<p>read from the register both $s0-&gt;rs $t0-&gt;rt. // no destination register needed</p>
+<p>relative address = (LOOP-PC-4)/4.  // because relative address should have a 32-bits address, so by calculation, we could use relative address (16 bits)</p>
+<ul>
+<li></li>
+</ul>
+<pre><code class="language-assembly">lui		$t0, 255 	# because $t0 is the destination register
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>opcode</th>
+<th>rs</th>
+<th>rt</th>
+<th>Immediate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>001111</td>
+<td>00000</td>
+<td>01000</td>
+<td>0000 0000 1111 1111</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li></li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928084836733.png" alt="image-20200928084836733" style="zoom:33%;" />
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201005110337077.png" alt="image-20201005110337077" style="zoom:50%;" />
+<h2 id="j-format-2">J-format</h2>
+<p>![image-20200928085339660](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928085339660.png)</p>
+<p>encode full address in instruction, use 26 bits represent a 32 bits address</p>
+<p>leave the first 4 bits of PC untouched.</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928085659606.png" alt="image-20200928085659606" style="zoom:33%;" />
+<h2 id="addressing-in-branches-and-jumps-2">Addressing in Branches and Jumps</h2>
+<ul>
+<li>J-type: 6 bits for operation field and the rest of the bits for the address field.</li>
+</ul>
+<p><code>j 10000</code> can be assembled into</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">2</th>
+<th style="text-align:center">10000</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6 bits</td>
+<td style="text-align:center">26 bits</td>
+</tr>
+</tbody>
+</table>
+<p>the value of the jump opcode is 2 and the jump address is 10000</p>
+<ul>
+<li>PC-relative addressing</li>
+</ul>
+<p>a branch instruction would calculate: Program counter = Register + Branch address</p>
+<p>for conditional branches: loops and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>i</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">if</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span> statements</p>
+<h2 id="decoding-machine-code-2">Decoding Machine Code</h2>
+<ol>
+<li>converting hex to binary to find <strong>op fields</strong>, determine the operation</li>
+<li></li>
+</ol>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200928140704517.png" alt="image-20200928140704517" style="zoom:50%;" />
+<ul>
+<li>
+<p>How to get address</p>
+<ul>
+<li>immediate addressing
+<ul>
+<li>I-type <code>addi $s0, $s1, -1</code></li>
+</ul>
+</li>
+<li>register addressing
+<ul>
+<li>R-type / I-type : all or some operands provided by register IDs directly <code>add $t0, $s0, $s1</code></li>
+</ul>
+</li>
+<li>base addressing
+<ul>
+<li>I-type: operands provided by using base address of memory location <code>lw $t0, 32($s0)</code></li>
+</ul>
+</li>
+<li>PC-relative addressing
+<ul>
+<li>Operands relative to PC, used for near branch <em>target address = PC + 4 + offest * 4</em> , <code>beq $s0, $s1, LESS</code></li>
+</ul>
+</li>
+<li>Pseudodirect addressing
+<ul>
+<li>encode full address in instruction J-type (<code>j</code> and <code>jal</code>) <em>target address = PC[31:28] : address * 4</em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><em>instructions from memory &amp; data from/into RF/memory</em></p>
+  <img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20200930114747486.png" alt="image-20200930114747486" style="zoom:33%;" />
+<h1 id="t05-2">T05</h1>
+<p>Review of Digital Logic</p>
+<p>who to control reading  / writing? do not read / write at the same time -&gt; control signal in RF</p>
+<ul>
+<li>
+<p>memory (access memory is slower than access RF, because of the big circuit of memory, need to decode the address)</p>
+<ul>
+<li>SRAM (Static RAM)</li>
+</ul>
+<figure data-type="image" tabindex="7"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930130847535.png?lastModify=1601950411" alt="image-20200930130847535" loading="lazy"></figure>
+<ul>
+<li>DRAM</li>
+</ul>
+<figure data-type="image" tabindex="8"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930131212504.png?lastModify=1601950411" alt="image-20200930131212504" loading="lazy"></figure>
+<p>memory in MIPS</p>
+<p>insturction memory: only read afterwards</p>
+<p>data memory: only one address for read / write</p>
+<figure data-type="image" tabindex="9"><img src="file:///Users/yuxinmiao/Library/Application%20Support/typora-user-images/image-20200930131317240.png?lastModify=1601950411" alt="image-20200930131317240" loading="lazy"></figure>
+<p>If need write, write first</p>
+</li>
+</ul>
+<h1 id="t06-2">T06</h1>
+<p>Single Cycle Processor Chapter 4.1-4.4</p>
+<p>■■ The <strong>memory-reference</strong> instructions load word (lw) and store word (sw)</p>
+<p>■■ The <strong>arithmetic-logical</strong> instructions add, sub, AND, OR, and slt</p>
+<p>■■ The instructions <strong>branch</strong> equal (beq) and jump (j), which we add last</p>
+<p>PC is controled by clock signal</p>
+<p>every instruction, needs: send the PC to the memory that contains the code and fetch the instruction from that memory / read one or two registers, using fields of the instruction to select.</p>
+<p><em>state element:</em> a memory element, such as a register or a memory</p>
+<ul>
+<li>clocking methodology: edge-triggered clocking: a clocking scheme in which ass state changes occur on a clock edge. Only state elements can store data value, <strong>any collection of combinational logic must have its inputs come from a set of state elements and its outputs written into a set of state elements</strong>. The inputs are values that were written in a previous clock cycle, while the outputs  are values that can be used in a following clock cycle.</li>
+<li>ALUOp &amp; funct -&gt; ALU Control</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007102736810.png" alt="image-20201007102736810" style="zoom:33%;" />
+<p>​		Generate a 2-bit ALUOp (by CPI controller). With ALUOp and funct field -&gt; ALU control</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007103211448.png" alt="image-20201007103211448" style="zoom:50%;" />
+<blockquote>
+<p>​		that is, using multiple levels of decoding -&gt; reduce the size of the main control unit (opcode before)</p>
+</blockquote>
+<p>The corresponding truth table is as follows, don’t care term all represented with X</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007103747839.png" alt="image-20201007103747839" style="zoom:50%;" />
+<ul>
+<li>
+<p>instruction format</p>
+<p><code>opcode</code> bits [31:26] as Op[5:0]</p>
+<p>Two register be read <code>rs</code> <code>rt</code> [25:21] and [20:16] (R-type, beq, store)</p>
+<p>base register for load and store <code>rs</code> [25:21]</p>
+<p>offset [15:0] (beq, load, store)</p>
+<p>destination register - load: <code>rt</code> [20:16]</p>
+<p>​									- R-type: <code>rd</code> [15:11] -&gt; use a Mux to select</p>
+</li>
+<li>
+<p>usage of seven control lines</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201007105307315.png" alt="image-20201007105307315" style="zoom:50%;" />
+</li>
+</ul>
+<p>For R-type, will not use data memory</p>
+<p>lw: read register from register file, ALU calculate the address, read data from data memory, store the data read back to register file</p>
+<p>![image-20201013152850305](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201013152850305.png)</p>
+<h3 id="clocking-methodology-2">Clocking Methodology</h3>
+<p><code>lw</code> load type instruction will need most time (becasuse of read from data)</p>
+<p><code>beq</code> only read from register and do some calculation, will not cost more time</p>
+<p><em>sigle-cycle processor</em> is not feasible to vary period for differerent instructions</p>
+<p>![image-20201016131205087](/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201016131205087.png)</p>
+<p>​	clock cycle time for single-cycle processor will be 800ps, regardless of the instructions’ distribution</p>
+<p>​	execution time is <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>100</mn><mo>∗</mo><mn>800</mn><mi>p</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">100*800ps</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord">8</span><span class="mord">0</span><span class="mord">0</span><span class="mord mathdefault">p</span><span class="mord mathdefault">s</span></span></span></span></p>
+<p><em>multi-cycle CPU</em> - FSM: each instruction takes multiple cycles to execute</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201016132709964.png" alt="image-20201016132709964" style="zoom:50%;" />
+<p>​	still which operation will take the longest time - Instr Fetch: 200ps</p>
+<p>​	However, with different distribution, multi-cycle will have different total execution time, some may be worse than single-cycle some may be worse.</p>
+<h1 id="t07-2">T07</h1>
+<p>Pipelined Processor</p>
+<p>divide the big combinational circuit into five small stages, one step per stage per cycle</p>
+<ol>
+<li>IF:  Instruction fetch</li>
+<li>ID:  Instruction decode and register file read</li>
+<li>EX:  Execution or address calculation</li>
+<li>MEM:  Data memory access</li>
+<li>WB:  Write result back to register</li>
+</ol>
+<p>Single-clock-cycle diagram / multi-clock-cycle diagram</p>
+<p>Instruction-level parallism: multiple instructions exectued at the same time</p>
+<p>execution time for each instruction does not improve (all need to execute the five stages)</p>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020211402324.png" alt="image-20201020211402324" style="zoom:50%;" />
+<h1 id="t08-2">T08</h1>
+<p>Data Hazards</p>
+<ul>
+<li>add stalls: nop instructions</li>
+<li>forwarding (bypassing) : use data before it is stored into the register</li>
+</ul>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020212106089.png" alt="image-20201020212106089" style="zoom:50%;" />
+<p>hazard notation</p>
+<p>1a.  EX/MEM.RegisterRd = ID/EX.RegisterRs</p>
+<p>1b. EX/MEM.RegisterRd = ID/EX.RegisterRt</p>
+<p>2a.  MEM/WB.RegisterRd = ID/EX.RegisterRs</p>
+<p>2b. MEM/WB.RegisterRd = ID/EX.RegisterRt</p>
+<ol>
+<li>
+<p>Forwarding in EX stage</p>
+<p>we consider  only  the  challenge  of  forwarding  to  an  operation  in  the  EX  stage,  which  may  be  either an ALU operation or an effective address calculation. (instruction tries to use a register in its EX stage that an earlier instruction intends  to write in its WB stage, we actually need the values as inputs to the ALU. )</p>
+<pre><code>EX hazard 
+if (EX/MEM.RegWrite  // check whether previous a WB to register file needed 
+ and (EX/MEM.RegisterRd ≠ 0)  // check whether we need to change the content of $zero
+ and (EX/MEM.RegisterRd = ID/EX.RegisterRs)) // check whether the destination register need to use for this ALU
+ ForwardA = 10
+
+if (EX/MEM.RegWrite
+ and (EX/MEM.RegisterRd ≠ 0)
+ and (EX/MEM.RegisterRd = ID/EX.RegisterRt)) ForwardB = 10
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201020214146582.png" alt="image-20201020214146582" style="zoom:50%;" />
+<blockquote>
+<p>Note  that  the  EX/MEM.RegisterRd  field  is  the  register  destination  for  either  an ALU instruction (which comes from the Rd field of the instruction) or a load  (which comes from the Rt field).</p>
+</blockquote>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022085644224.png" alt="image-20201022085644224" style="zoom:50%;" />
+<pre><code>MEM HARZARD
+if (MEM/WB.RegWrite
+	and (MEM/WB.RegisterRd ≠ 0)
+	and not(EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0))
+			and (EX/MEM.RegisterRd ≠ ID/EX.RegisterRs)
+	and (MEM/WB.RegisterRd = ID/EX.RegisterRs)) ForwardA = 01
+
+if (MEM/WB.RegWrite
+	and (MEM/WB.RegisterRd ≠ 0)
+	and not(EX/MEM.RegWrite and (EX/MEM.RegisterRd ≠ 0))
+		and (EX/MEM.RegisterRd ≠ ID/EX.RegisterRt)
+	and (MEM/WB.RegisterRd = ID/EX.RegisterRt)) ForwardB = 01
+</code></pre>
+<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022085828078.png" alt="image-20201022085828078" style="zoom:50%;" />
+<p>​	<strong>To select the signed immidiate, add another MUX unit (choose from the output of forward B between signExtend)</strong></p>
+<p>​	<img src="/Users/yuxinmiao/Library/Application Support/typora-user-images/image-20201022090130778.png" alt="image-20201022090130778" style="zoom:50%;" /></p>
+</li>
+</ol>
+<h3 id="load-use-hazard-detection-2">Load use hazard detection</h3>
+<p><em>If value not computed when needed</em></p>
+<p>$2 is needed in <code>and</code> instruction before it is read from data mem</p>
+<p><img src="/Users/yuxinmiao/Documents/JI/JI2020Fall/VE370/image/image-20201024104037856.png" alt="image-20201024104037856" loading="lazy">*</p>
+<img src="./image/image-20201024103630013.png" alt="image-20201024103630013" style="zoom:50%;" />
+<p>​	Add the stall(bubble) by</p>
+<ul>
+<li>Force control signals in ID/EX register to 0’s (the MUX) (nothing will do with this 0 control signals)</li>
+<li>Prevent the update of PC and IF/ID register <code>PCWrite=0, IF/IDWrite=0 when Hazard=1</code></li>
+</ul>
+<img src="./image/image-20201024103916398.png" alt="image-20201024103916398" style="zoom:50%;" />
+<h1 id="final-review-2">Final Review</h1>
+<h2 id="pipeline-2">Pipeline</h2>
+<p>hazard detection unit and forwarding unit are seperate, such that we should not let hazard detection to control whether and which should forwrding</p>
+<img src="./image/image-20201205190723340.png" alt="image-20201205190723340" style="zoom:25%;" />
+<ul>
+<li>
+<p><strong>load-use hazard</strong>. insert bubbles: let control signals in ID/EX registers be zero, EX, MEM, WB stage will do nothing with these zero control signals. Registers value still exist. PC and IF/ID register’s value do not change.  会有EX的data hazard（对nop），但是ineffective，会在下一个MEM hazard的作为下个instruction的值替换</p>
+<p>在下一个instruction为sw时，如有data hazard，为避免stall太多，加一个MemSrc来控制data mem要write的data可以直接来自MEM/WB</p>
+</li>
+<li>
+<p><strong>control hazard</strong>, flush the wrong instruction. When determine branch (including address calculation and whether to branch through comparator) in</p>
+<ul>
+<li><em>ID</em>: IF/ID.Reg.flush</li>
+<li><em>EX</em>: IF/ID.Reg.flush + ID.flush</li>
+<li><em>MEM:</em> IF/ID.Reg.flush + ID.flush + EX.flush</li>
+</ul>
+<p>ID.flush 和 EX.flush 是针对control signal而不是整个register都变为0</p>
+</li>
+<li>
+<p><strong>data hazard for branch</strong> 前一个是R type 必须stall 一个，前一个是lw必须stall 两个。再进行forwarding 到ID ex</p>
+</li>
+<li>
+<p><strong>exception</strong></p>
+</li>
+</ul>
+<h2 id="cache-2">Cache</h2>
+<p><strong>All data in a memory must also be present in its lower level</strong></p>
+<h3 id="overall-2">Overall</h3>
+<ul>
+<li>
+<p>Block placement</p>
+</li>
+<li>
+<p>block identification</p>
+<ul>
+<li>for direct map: 通过block index locate，tag只需要比对一次（index是block index）</li>
+<li>for n-way set associative: 通过set index locate，比较所有tag，n次（无block index 只有set index）</li>
+<li>for full associative：search all entries(n times) / lookup table (0 time) （无block/set index）</li>
+</ul>
+</li>
+<li>
+<p>block replacement</p>
+</li>
+<li>
+<p>write strategy</p>
+<p>write through 比起 write back 要cheaper一些，因为check match和write data可以同时进行(saves a step for hit)</p>
+<p>以及可以分别被应用于两个的 write allocation on miss</p>
+<p>write allocate: allocate cache block on miss by fetching corresponding memory block; update cache block; update memory block</p>
+<p>no write allocate: write around(write directly to memory); fetch from memory</p>
+<ul>
+<li>write through 要找到原有的先写到cache里面，再用新的覆盖掉cache里面的然后写入main memory
+<ul>
+<li>write buffer： 针对write through的方法，把要写进memory的data放进buffer里面，CPU接着往下走留着buffer完成之后的工作（cache里面的和buffer一起实时更新，main里面的memory在之后由buffer更新）</li>
+</ul>
+</li>
+<li>write back： keep a dirty bit. When need to replace a block with dirty bit == 1 in the cache, write the block back into main memory first
+<ul>
+<li>write buffer：用于write back则是write into buffer and checking match 同时</li>
+</ul>
+</li>
+</ul>
+<img src="./image/allocation.png" alt="截屏2020-12-07 下午3.02.52" style="zoom:30%;" />
+</li>
+<li>
+<p>Sources of misses 3C model: Compulsory | Capacity | Conflict</p>
+</li>
+</ul>
+<h3 id="points-2">Points</h3>
+<ul>
+<li>
+<p>principle of locality</p>
+</li>
+<li>
+<p>principle of memory access</p>
+<ul>
+<li>Hit time: time to access a memory, including
+<ul>
+<li>whether hit/miss</li>
+<li>time to pass block to requestor</li>
+</ul>
+</li>
+<li>miss penalty: time to fetch a block from lower level upon a miss, including
+<ul>
+<li>time to access the block</li>
+<li>time to transfer it between levels</li>
+<li>time to overwrite the higher level block</li>
+<li>time to pass block to requestor</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>block size</p>
+<ul>
+<li>larger block should reduce miss rate (spatial locality)</li>
+</ul>
+</li>
+</ul>
+<h4 id="difference-types-of-cache-2">Difference types of cache</h4>
+<p>word offset 是针对一个block里面的word数量决定</p>
+<p>并不是改了cache内容就dirty了！是一个block里面的数被sw/sb改掉了</p>
+<p>all blocks in a set must be searched (tag search in parallel + extra hardware &amp; access (hit) time )</p>
+<h5 id="directed-mapped-cache-2">directed mapped cache:</h5>
+<ul>
+<li>byte address = word address (block address(tag + block index) + word offset) + byte offset</li>
+<li>cache consists of (valid bit + tag + data)</li>
+</ul>
+<p>word offset由一个block里面有多少word决定 （但transfer要一个block一起transfer，于是会有hit due to spatial locality）可以用除法来表示舍弃之后几位（除以4就是舍掉最后两位，比如offset）<img src="../../../../Library/Application Support/typora-user-images/截屏2020-12-07 下午2.34.05.png" alt="截屏2020-12-07 下午2.34.05" style="zoom:50%;" /></p>
+<p><img src="截屏2020-12-07 下午2.35.56.png" alt="截屏2020-12-07 下午2.35.56" style="zoom:30%;" />、</p>
+<h5 id="n-way-set-associative-cache-需要set-index但access一个set中的block必须compare-n次-2">N-way set associative cache: 需要set index，但access一个set中的block必须compare N次</h5>
+<p>byte address = word address (block address(tag + set index) + word offset) + byte offset</p>
+<h5 id="full-associative-cache-2">Full-associative cache</h5>
+<p>一个block可以去任意一个cache entry，comparator的数量就是cache size, no index</p>
+<ul>
+<li>
+<p>byte address = word address (block address(tag) + word offset) + byte offset</p>
+</li>
+<li>
+<p>Average Memory Access Time (AMAT): hit time + miss rate * miss penalty</p>
+</li>
+<li>
+<p>reduce miss penalty: early start / critical word first 可能要再看</p>
+</li>
+<li>
+<p>increase associativity decrease miss rate (with diminishing improvement)</p>
+</li>
+<li>
+<p>multiple caches时的</p>
+</li>
+<li>
+<p>LRU 要keep reference bit 对于high associativity: complex and costly hardware</p>
+</li>
+</ul>
+<h2 id="virtual-memory-2">Virtual Memory</h2>
+<ul>
+<li>
+<p>VM block is called a <strong>page</strong>, VM miss is called a page fault</p>
+<ul>
+<li>
+<p>virtual address some maps to physical address, some to disk address, through address translation</p>
+</li>
+<li>
+<p>physical address usually smaller than virtual address</p>
+</li>
+<li>
+<p>n to one map</p>
+</li>
+<li>
+<p>page fault: page is not present in memory, the page must be fetched from disk</p>
+</li>
+</ul>
+</li>
+<li>
+<p>virtual address = virtual page number + page offset</p>
+<ul>
+<li>Processor always provide virtual address</li>
+<li>page offset: eg. 12bits -&gt; 4K byte page size</li>
+<li>virtual page numebr translated into physical page number, while physical always be larger</li>
+<li>virtual page number used as tag when TLB hit &amp; used as page table index when TLB miss to access page table</li>
+</ul>
+</li>
+<li>
+<p>Translator - Page Table (for each program)</p>
+<ul>
+<li>Store all mapping &amp; indexed by virtual page numbers &amp; located in main</li>
+<li>page table register</li>
+</ul>
+</li>
+<li>
+<p>Translation Look-aside Buffer (TLB) - fast cache of page table within CPU</p>
+<ul>
+<li>Page table -&gt; TLB == main -&gt; cache</li>
+<li>a subset of page table</li>
+<li>full associativity: to lower miss rate (because for small TLB, access time not a major concern)</li>
+<li>LRU (need to keep a reference bit) or random replacement</li>
+<li>physical address will be pointed by both TLB and page table</li>
+</ul>
+</li>
+<li>
+<p>TLB miss: cache tag (comparison) + valid bit  |  Page Fault: by page table valid bit (no comparison)</p>
+<ul>
+<li>TLB miss:
+<ul>
+<li>TLB is full: ref bit and dirty bit of <strong>replaced entry should be copied back to page table</strong>, but not for valid bit</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Page write: disk write takes millions of time ! 不可以write through</p>
+<ul>
+<li>page table always write back ! (dirty bit in page table)</li>
+<li>write an entire page is more efficient than write a word</li>
+</ul>
+</li>
+<li>
+<p>TLB and cache interaction：还要再看</p>
+<ul>
+<li>for physically addressed cache <img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201208211559726.png" alt="image-20201208211559726" style="zoom:30%;" />
+<ul>
+<li>Virtual addr -&gt; TLB -&gt; provide physical address to cache (may have longer time because TLB on critical path)</li>
+<li><img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201209194505038.png" alt="image-20201209194505038" style="zoom:50%;" /> The cache is physical address, (cache index and tag are both physical )</li>
+</ul>
+</li>
+<li>virtually addressed cache: 只有在cache miss的时候需要将virtual address翻译成physical address
+<ul>
+<li>complications due to aliasing</li>
+<li>This ambiguity would allow one program to write the data without the other program being aware that the data had changed. Completely virtually addressed caches either introduce design limitations on the cache and TLB to reduce aliases or require the operating system, and possibly the user, to take steps to ensure that aliases do not occur.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="overall-framework-2">Overall Framework</h2>
+<img src="https://github.com/yuxin-miao/yuxin-miao.github.io/raw/master/post-images/370images/image-20201209202108111.png" alt="image-20201209202108111" style="zoom:50%;" />
+<p><strong>conflict miss</strong> Also called collision miss. A cache miss that occurs in a set­associative or direct­ mapped cache when multiple blocks compete for the same set and that are eliminated in a fully associative cache of the same size. <strong>not exist for full-associativity cache</strong></p>
+<p>再看一下书上的判断题/可能的多选题/page table那几个书上的题</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://yuxin-miao.github.io/tag/course-note/">
+            <span class="flex-auto">CourseNote</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://yuxin-miao.github.io/post/stock-price-prediction/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  Stock Price Prediction
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://yuxin-miao.github.io/post/ve406-notes/">
+                <h3 class="post-title">
+                  VE406 Notes
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://yuxin-miao.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
