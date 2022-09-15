@@ -1,0 +1,940 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>YU</title>
+<meta name="description" content="Hi :)" />
+<link rel="shortcut icon" href="https://yuxin-miao.github.io/favicon.ico?v=1663249252557">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.3.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://yuxin-miao.github.io/styles/main.css">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="ri-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://yuxin-miao.github.io">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://yuxin-miao.github.io/images/avatar.png?v=1663249252557" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">YU</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#adt-abstract-data-type">ADT: Abstract Data Type</a></li>
+<li><a href="#subtype">Subtype</a>
+<ul>
+<li><a href="#inheritance-subclassing">Inheritance (subclassing)</a></li>
+<li><a href="#inheritance-subtyping">Inheritance &amp; Subtyping</a></li>
+<li><a href="#keyword-virtual">Keyword <code>Virtual</code></a></li>
+</ul>
+</li>
+<li><a href="#interface">Interface</a>
+<ul>
+<li><a href="#casting">Casting</a></li>
+</ul>
+</li>
+<li><a href="#dynamic-memory">Dynamic Memory</a>
+<ul>
+<li><a href="#memory-management">Memory Management</a></li>
+<li><a href="#new-and-delete"><code>new</code> and <code>delete</code></a></li>
+<li><a href="#destructor">Destructor</a></li>
+</ul>
+</li>
+<li><a href="#deep-copy">Deep Copy</a></li>
+<li><a href="#dynamic-resizing">Dynamic Resizing</a></li>
+<li><a href="#linked-list">Linked List</a></li>
+<li><a href="#template-container">Template &amp; Container</a>
+<ul>
+<li><a href="#container-of-pointers-1-invariant-3-rules">Container of pointers: 1 invariant &amp; 3 rules</a></li>
+</ul>
+</li>
+<li><a href="#operator-overloading">Operator Overloading</a></li>
+<li><a href="#linear-list">Linear List</a></li>
+<li><a href="#stack">Stack</a></li>
+<li><a href="#queue">Queue</a></li>
+<li><a href="#deque">Deque</a></li>
+<li><a href="#stl">STL</a>
+<ul>
+<li><a href="#sequential-container">Sequential Container</a>
+<ul>
+<li><a href="#vector">vector</a></li>
+<li><a href="#deque-2">deque</a></li>
+<li><a href="#list">List</a></li>
+</ul>
+</li>
+<li><a href="#associative-container">Associative Container</a>
+<ul>
+<li><a href="#map-associative-array">map / associative array</a></li>
+</ul>
+</li>
+<li><a href="#container-adapters">Container Adapters</a>
+<ul>
+<li><a href="#stack-2">Stack</a></li>
+<li><a href="#queue-2">Queue</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#dictionary">Dictionary</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="ri-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700">Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a></div>
+    <a class="rss" href="https://yuxin-miao.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">VE280 Review</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2020-08-04 / 23 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>Review notes for VE280 (Programming and Elementary Data Structure), took in SU2020 @UM-SJTU JI.</p>
+<!-- more -->
+<p>Some useful commands for 280.</p>
+<pre><code class="language-bash">tar zxvf p5.tar // 解包p5.tar到当前mu lu
+tar -cf new.tar *.cpp *.h *.txt // 打包当前目录下所有.h .cpp .txt文件到 new.tar
+tar -cf try.tar final // 打包final文件夹为try.tar 
+tar -xzf XYZ.tgz // to decompress and the command 
+tar -czf XYZ.tgz XYZ // to compress.
+</code></pre>
+<pre><code class="language-Cmake">cmake_minimum_required(VERSION 3.16)
+project(final)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS &quot;-Wall -Wextra -Werror -pedantic&quot;)
+add_executable(final review/main.cpp)
+add_executable(Q1 Q1/q1.cpp)
+add_executable(final2 review/memory.cpp)
+add_executable(final3 review/deepCopy.cpp)
+</code></pre>
+<h2 id="adt-abstract-data-type">ADT: Abstract Data Type</h2>
+<p>An ADT provides an <strong>abstract</strong> <strong>description</strong> of <strong>values</strong> and <strong>operations</strong></p>
+<ul>
+<li>information hiding</li>
+<li>encapsulation</li>
+</ul>
+<p>member function call: The other members of the object are also visible to the function members!</p>
+<p><strong>representation invariants / rep invariants</strong>: This invariant is a rule that the representation must obey both <strong>immediately before</strong> and <strong>immediately after</strong> any method's execution. eg. rep invariants for the following code is</p>
+<ul>
+<li>Represent a set of size N as an <strong>unordered</strong> array of integers with no duplicates, stored in the first N slots of the array.</li>
+<li>int numElts: maintains the number of elements currently in the array.</li>
+</ul>
+<pre><code class="language-c++">const int MAXELTS = 100;
+class IntSet { /* Implement with fixed size array */
+    // OVERVIEW: a mutable set of integers, |set| &lt;= MAXELTS
+      int elts[100]; 
+  		int numElts;
+  		int indexOf(int v) const; // RME
+  public:
+  	IntSet()::numElts(0); 
+    void insert(int v); // RME
+    void remove(int v); // RME
+    bool query(int v); // RME
+    int  size(); // RME
+};
+</code></pre>
+<p>When <code>remove</code>, the representation invariants violated is</p>
+<ul>
+<li>The requirement that the first N values occupy first N slots of the array</li>
+<li>numElts does not maintain the number of elements currently in the array</li>
+</ul>
+<p>Invariants can also be coded, to check the <strong>sanity of the structure.</strong> Eg. for sorted IntSet()</p>
+<pre><code class="language-c++">bool strictSorted(int a[], int size)
+// REQUIRES: a has size elements
+// EFFECTS: returns true if a is sorted with no duplicates
+bool repOK(){ // as a private method 
+      // EFFECTS: returns true if the rep. invariants hold
+    return strictSorted(elts, numElts);
+}
+// add in the class member function when modifies this 
+assert(repOK());
+</code></pre>
+<p><strong>Initialization syntax</strong> <em>FIRST</em>: The initialization list initializes variables; <em>SECOND:</em> <strong>The body of the constructor executes</strong></p>
+<p>const member function will not change <code>this</code>, as <code>this</code> is a pointer to const instance. Only can call other member function that are const.</p>
+<h2 id="subtype">Subtype</h2>
+<p>S is a subtype of T, &quot;S &lt;: T&quot;, T is a supertype of S. When type T is expected, an object of type S can be supplied without changing the correctness of the original computation.</p>
+<p><strong>Substituion Principle</strong></p>
+<ul>
+<li>The new method must do everything the old method did, but it is allowed to do more as well</li>
+<li>It must require no more of the caller than the old method did, but it can require less.</li>
+</ul>
+<pre><code class="language-c++">void add(istream &amp;source) {
+	double n1, n2;
+	source &gt;&gt; n1 &gt;&gt; n2;
+    cout &lt;&lt; n1 + n2;
+}
+int main(){
+    ifstream inFile;
+    inFile.open(&quot;test.in&quot;)
+		add(inFile); // no type conversion, it calls function add of ifstream
+    inFile.close();
+}
+</code></pre>
+<p><strong>Create a subtype</strong></p>
+<ul>
+<li>
+<p>add one or more operations</p>
+</li>
+<li>
+<p>strengthen the postcondition of one or more operations</p>
+<p>PostCondition:</p>
+<ul>
+<li>The EFFECTS clause: promising <u>everything you used to</u>, plus extra.</li>
+<li>its return type</li>
+</ul>
+</li>
+<li>
+<p>weaken the preconditions of one or more operations</p>
+<ul>
+<li>The REQUIRES clause: could not only accept all previous conditions, but accept more (that would not be accepted before)</li>
+<li>its argument type</li>
+</ul>
+</li>
+</ul>
+<h3 id="inheritance-subclassing">Inheritance (subclassing)</h3>
+<p>it is possible to create <strong>subclasses</strong> that are <strong>NOT</strong> <strong>subtypes</strong> and don't follow the substitution principle.</p>
+<pre><code class="language-c++">class bar : /* access */ foo { // derived class bar, derived from foo
+	... // bar is a foo, possibly with extra space / with new or redifined member function
+};
+</code></pre>
+<p>When a class (called derived, child class or subclass) inherits from another class (base, parent class, or superclass), the derived class is automatically populated with almost everything from the base class.</p>
+<ul>
+<li>This includes member variables, functions, types, and even static members.</li>
+<li>The only thing that does not come along is friendship-ness.</li>
+</ul>
+<p><strong>Access specifier</strong> - default: <code>private</code></p>
+<ol>
+<li>
+<p><code>access</code> is <code>private</code> method: public / private / protected member objects are all become <code>private</code></p>
+<p>neither the derived class nor the outside could access any of them</p>
+</li>
+<li>
+<p><code>access</code> is <code>protected</code> method: <code>private</code> -&gt; <code>private</code>;<code>protected / public</code>:  <code>protected</code></p>
+</li>
+<li>
+<p><code>access</code> is <code>public</code> method: <code>private</code> -&gt; <code>private</code>;<code>protected / public</code>:  <code>public</code></p>
+</li>
+</ol>
+<p><strong>Constructors and destructors</strong></p>
+<p>constructor will call from parent to son, destructor will call from son to parent. All will be called.</p>
+<pre><code class="language-c++">class Parent {
+public:
+    Parent() { cout &lt;&lt; &quot;Parent::Constructor\n&quot;; }
+    virtual ~Parent() { cout &lt;&lt; &quot;Parent::Destructor\n&quot;; }
+};
+
+class Child : public Parent {
+public:
+    Child() : Parent() { cout &lt;&lt; &quot;Child::Constructor\n&quot;; }
+    ~Child() override { cout &lt;&lt; &quot;Child::Destructor\n&quot;; }
+};
+
+class GrandChild : public Child {
+public:
+    GrandChild() : Child() { cout &lt;&lt; &quot;GrandChild::Constructor\n&quot;; }
+    ~GrandChild() override { cout &lt;&lt; &quot;GrandChild::Destructor\n&quot;; }
+};
+
+int main() {
+    GrandChild gc;
+}
+</code></pre>
+<p>output:</p>
+<pre><code class="language-bash">Parent::Constructor
+Child::Constructor
+GrandChild::Constructor
+GrandChild::Destructor
+Child::Destructor
+Parent::Destructor
+</code></pre>
+<h3 id="inheritance-subtyping">Inheritance &amp; Subtyping</h3>
+<p>Inheritance is neither a sufficient nor a necessary condition of subtyping relation. Yet, it is the only subtyping method supported by C++ (without a hack) in runtime.</p>
+<pre><code class="language-c++">// Creat subtype by copy and paste
+class A {
+public:
+    void quak(){} 
+};
+class B { // B :&lt; A
+public:
+    void quak(){} 
+    void nop(){}
+};
+
+// Private inheritance prevents D to be a subtype of A, only a subclass
+class C {
+    int priv;
+};
+class D : C {};
+</code></pre>
+<h3 id="keyword-virtual">Keyword <code>Virtual</code></h3>
+<p>Consider the apparent type and actual type:</p>
+<ul>
+<li>Apparent Type: Apparent type is the type annotated by the type system. It is the static type information. It is the you remarked to the compiler.</li>
+<li>Actual Type: It is the data type of the actual instance. It is the data type that describes what exactly is in the memory.</li>
+</ul>
+<p>&quot;someone might override my implementation: always check at run-time to see which version to call.”</p>
+<h2 id="interface">Interface</h2>
+<p><strong>Interface:</strong> the contract for using this type</p>
+<p>Base class: interface-only, <strong>abstract base class or virtual base clss</strong></p>
+<ul>
+<li>Declare each method as a virtual function</li>
+<li>“Assign” a zero to each of these virtual function</li>
+</ul>
+<pre><code class="language-c++">// in .h
+class IntSet { // a mutable set of integers
+   public: // could not provide constructor
+   // pure virtual functions, as a set of function pointers 
+     virtual void insert(int v) = 0; // this + {v}
+     virtual void remove(int v) = 0; // this – {v}
+     virtual bool query(int v) = 0; // does v exist in this?
+     virtual int  size() = 0; // return |this|
+  };
+IntSet *getIntSet(); // for an access function
+	  // EFFECTS: returns a pointer to the IntSet
+</code></pre>
+<ul>
+<li>No instance of an abstract class could be created, no implementation provided</li>
+<li>The derived class need to implement the constructor</li>
+</ul>
+<pre><code class="language-c++">// in .cpp
+static IntSetImpl impl;
+Intset* getIntSet() {
+	return&amp; impl;
+}
+</code></pre>
+<p>So the user could use <code>IntSet *s = getIntSet();</code></p>
+<ul>
+<li>Derived class pointer compatible to base class.</li>
+<li>Derived class instance compatible to base class (possibly <code>const</code>) reference.</li>
+<li>You can assign a derived class object to a base class object.</li>
+</ul>
+<p>The reverse is generally false. E.g. assigning a base class pointer to derived class pointers needs special casting.</p>
+<pre><code class="language-c++">class ISummable { 
+public:
+	/* Add item x to itself */
+	virtual void add(ISummable&amp; x) = 0; 
+};
+// This class models the objects that are summable. 
+// Based on this modeling, we could write the following very general function: 
+void sum(ISummable elem[],size_t size, ISummable&amp; rst) {
+	for (int i = 0; i &lt; size; ++i) 
+		rst.add(elem[i]); 
+}
+// This will work for anything that is Summable object. 
+// When a class derives from an interface and provides an implementation, 
+// we say it implements the interface.
+</code></pre>
+<h3 id="casting">Casting</h3>
+<p><strong>dynamic_cast</strong></p>
+<p>In C++, dynamic casting is primarily used to safely downcast like casting a base class pointer (or reference) to a derived class pointer (or reference). It can also be used for upcasting, i.e. casting a derived class pointer (or reference) to a base class pointer (or reference).</p>
+<ul>
+<li>To use <code>dynamic_cast&lt;new_type&gt;(ptr)</code>, the base class should contain at least one virtual function.</li>
+<li>Dynamic casting checks consistency at runtime; hence, it is slower than static cast</li>
+</ul>
+<pre><code class="language-c++">class Shape{
+    string s_name;
+public:
+    Shape(string name): s_name(name){}
+    virtual void get_info(){ cout&lt;&lt;s_name&lt;&lt;endl; }
+};
+
+class Square : public Shape{
+    int side;
+public:
+    Square(string S_name, int value) : Shape(S_name), side(value){}
+    void get_info(){ cout&lt;&lt;&quot;Area of the square is: &quot;&lt;&lt;side * side&lt;&lt;endl; }
+};
+
+class Rectangle : public Shape{
+    int length;
+    int width;
+public:
+    Rectangle(string S_name, int len, int wid) : Shape(S_name), length(len), width(wid){}
+    void get_info() override { cout&lt;&lt;&quot;Area of the rectangle is: &quot;&lt;&lt;length * width&lt;&lt;endl; }
+};
+
+Shape* create_square(string S_name, int value){
+    return new Square(S_name, value);
+}
+
+Rectangle* create_rectangle(string S_name, int len, int wid){
+    return new Rectangle(S_name, len, wid);
+}
+
+int main() {
+    // quad is the pointer to the parent class, 
+    // it needs to be casted to be used to
+    // access the method of the child class.
+    Shape *quad = create_square(&quot;Quadliteral&quot;, 4);
+    // Trying to downcast the parent class pointer to
+    // the child class pointer.
+    Square* sq = dynamic_cast&lt;Square*&gt;(quad);
+    // dynamic_cast returns returns null if the type
+    // to be casted into is a pointer and the cast
+    // is unsuccessful.
+    if(sq){
+        sq -&gt; get_info();
+    }
+    Rectangle *rect = create_rectangle(&quot;Quadliteral&quot;, 4, 5);
+    
+    // An example of a valid upcasting
+    Shape* quad1 = dynamic_cast&lt;Shape*&gt;(rect);
+ 
+    // An example of invalid downcasting
+    Square* sq1 = dynamic_cast&lt;Square*&gt;(quad1);
+    if(!sq1){
+        cout&lt;&lt;&quot;Invalid casting.&quot;&lt;&lt;endl;
+    }
+}
+
+</code></pre>
+<h2 id="dynamic-memory">Dynamic Memory</h2>
+<p><strong>Static</strong></p>
+<ul>
+<li>Global: have the same lifie time of the program. Reserved the space before the program begins, at complie time.</li>
+<li>local variables: defined whitin a block, including <strong>function arguments</strong>. Reserved the space at run time, known size to the compiler.</li>
+</ul>
+<p><strong>Dynamic</strong> complier don’t no the size and how long it lives.</p>
+<h3 id="memory-management">Memory Management</h3>
+<p>Each running program has its own memory layout, separated from other programs. The layout consists of a lot of segments, including:</p>
+<ul>
+<li><code>stack</code>: stores local variables</li>
+<li><code>heap</code>: dynamic memory for programmer to allocate</li>
+<li><code>data</code>: stores global variables, separated into initialized and uninitialized</li>
+<li><code>text</code>: stores the code being executed</li>
+</ul>
+<p>In order to pinpoint each memory location in a program’s memory, we assign each byte of memory an “address”. The addresses go from 0 all the way to the largest possible address, depending on the machine. As the figure below, the <code>text</code>, <code>data</code>, and <code>stack</code> segments have low address numbers, while the <code>stack</code> memory has higher addresses.</p>
+<h3 id="new-and-delete"><code>new</code> and <code>delete</code></h3>
+<p>new and new[] does the following:</p>
+<ul>
+<li>Allocates space in heap (for one or a number of objects).</li>
+<li>Constructs object in-place (including, but not limited to ctor).</li>
+<li>Returns the “first” address.</li>
+</ul>
+<pre><code class="language-c++">Type* obj0 = new Type; // Default construction
+Type* obj1 = new Type(); // Default construction
+Type* obj2 = new Type(arg1, arg2);
+Type* objA0 = new Type[size]; // Default cons each elt
+Type* objA1 = new Type[size](); // Same as obj A0
+</code></pre>
+<p><code>delete</code> and <code>delete[]</code> releases the objects allocated from <code>new</code> and <code>new[]</code> respectively. They does the following:</p>
+<ul>
+<li>Destroy the object (each object in the array) being released (by calling the destructor of the object).</li>
+<li>Returns the memory to the system.</li>
+</ul>
+<pre><code class="language-c++">int num = 100;
+int *array = new int[num];
+delete [] array;
+</code></pre>
+<h3 id="destructor">Destructor</h3>
+<p>The destructors for any ADTs declared locally within a block of code are <strong>called automatically when the block ends</strong>.</p>
+<pre><code class="language-c++">{
+	IntSet ip = IntSet(50);
+	...		
+} // ip will be destroyed by calling its destructor
+</code></pre>
+<p>Destructor of ADT will also be <strong>called when using <code>delete</code></strong>. A effective destructors should:</p>
+<ul>
+<li>Be named as <code>~ClassName</code></li>
+<li>Takes no argument and returns nothing <em>(not even void)</em></li>
+<li>If one expect the class to be inherited the <strong>destructor should be declared as <code>virtual</code></strong> (or double delete may happen)</li>
+<li>Release resource allocated only in this class, do not release base class resources!!!</li>
+</ul>
+<p>Consider that in lab8:</p>
+<pre><code class="language-c++">Node::~Node() {
+  	// EFFECTS: destroy the whole tree rooted at sub
+    // MODIFIES: this
+    for(int i = 0; i &lt; this-&gt;child_num; i++) { delete(children[i]); }
+    delete[] children;
+}
+</code></pre>
+<p><strong>double deletion</strong></p>
+<pre><code class="language-c++">class Base {
+protected:
+    int *p;
+public:
+    Base() : p(new int(10)) {}
+    virtual ~Base() {delete p;}
+};
+
+class Derived : public Base {
+    int *q;
+public:
+    Derived() : Base(), q(new int(20)) {}
+    virtual ~Derived() override {delete p; delete q;}
+};
+
+/* A */
+void main() {
+	Base* ptrA = new Derived; // double deletion occurs, destructor of both base and derived will be called 
+	delete ptrA;
+}
+
+/* B */
+void main() {
+	Derived* ptrB = new Derived; // double deletion occurs, destructor of both base and derived will be called 
+	delete ptrB;
+}
+
+/* To correct */
+class Derived : public Base { // in the derived class, it should not delete ANYTHING in the base class
+    int *q;
+public:
+    Derived() : Base(), q(new int(20)) {}
+    virtual ~Derived() override {delete q;}
+};
+</code></pre>
+<h2 id="deep-copy">Deep Copy</h2>
+<p><strong>Shallow copy</strong></p>
+<p>the default copy constructor and default assignment operators it provides use a copying method known as a member-wise copy, also known as a <em>shallow copy</em>. This works well if the fields are values, but may not be what you want for fields that point to dynamically allocated memory. The pointer will be copied. but the memory it points to will not be copied: the field in both the original object and the copy will then point to the same dynamically allocated memory, this causes problem at erasure, causing dangling pointers.</p>
+<p><strong>Deep copy</strong></p>
+<p>ecall binary tree and in-order traversal. We define that a good tree is a binary tree with ascending in-order traversal. How to deep copy a template good tree provided interface:</p>
+<pre><code class="language-c++">template &lt;class T&gt; 
+class GoodTree { 
+		T *op; 
+		GoodTree *left; 
+		GoodTree *right; 
+public:
+  	void removeAll(); 
+  	// EFFECTS: remove all things of &quot;this&quot; 
+  	void insert(T *op); 
+  	// REQUIRES: T type has a linear order &quot;&lt;&quot; 
+  	// EFFECTS: insert op into &quot;this&quot; with the correct location
+  	//					Assume no duplicate op.
+};
+template &lt;class T&gt; 
+void GoodTree&lt;T&gt;::copy_helper(const GoodTree&lt;T&gt; *t) { 
+  	if (t == nullptr) 
+      	return; 
+  	T *tmp = new(t-&gt;op); 
+  	insert(tmp); 
+  	copy_helper(t-&gt;left); 
+  	copy_helper(t-&gt;right); 
+}
+
+template &lt;class T&gt; 
+void GoodTree&lt;T&gt;::copyAll(const GoodTree&lt;T&gt; &amp;t) {
+		removeAll();
+  	copy_helper(&amp;t); 
+}
+</code></pre>
+<p>You may use <code>removeAll</code> and <code>insert</code> in your <code>copyAll</code> method.</p>
+<h2 id="dynamic-resizing">Dynamic Resizing</h2>
+<h2 id="linked-list">Linked List</h2>
+<h2 id="template-container">Template &amp; Container</h2>
+<h3 id="container-of-pointers-1-invariant-3-rules">Container of pointers: 1 invariant &amp; 3 rules</h3>
+<ul>
+<li><em>At-most-once invariant</em>: any object can be linked to at most one container at any time through pointer.</li>
+</ul>
+<ol>
+<li><em>Existence</em>: An object must be dynamically allocated before a pointer to it is inserted.</li>
+<li><em>Ownership</em>: Once a pointer to an object is inserted, that object becomes the property of the container. No one else may use or modify it in any way.</li>
+<li><em>Conservation</em>: When a pointer is removed from a container, either the pointer must be inserted into some container, or its referent must be deleted.</li>
+</ol>
+<h2 id="operator-overloading">Operator Overloading</h2>
+<ol>
+<li>Overloaded operator has a return type and a parameter list</li>
+</ol>
+<p>Keyword - operator; followed by the symbol</p>
+<pre><code class="language-C++">// nonmember function &amp; binary operator
+A operator+ (const A&amp;left, const A&amp;right) // return left + right
+  
+// class member function &amp; binary operator
+A A::operator+(const A&amp;left, const A&amp;right) // return *this + right
+// class member function &amp; unary operator
+A &amp;A::operator+=(const A&amp;right) // return *this + right, modifies this 
+</code></pre>
+<ol start="2">
+<li>
+<p>friendship</p>
+<p>friend declared inside the class, but the friend object or friend class are not the member of that class.</p>
+<p>Friend function: expose the private state of one class to another function (and only that function) explicitly.</p>
+<p>Friend class:  expose the private state of one class to another class (and only that class) explicitly.</p>
+<pre><code class="language-c++">class foo {
+    friend class bar; // not a member of foo
+    friend void baz(); // not a member of foo
+    int f; // private member 
+};
+class bar { ... };  // objects of class bar can access private member f of foo
+void baz() { ... } 
+</code></pre>
+<pre><code class="language-c++">class Complex {
+  // OVERVIEW: a complex number class
+  double real;
+  double imag;
+public:
+  Complex(double r=0, double i=0); // Constructor
+  Complex &amp;operator += (const Complex &amp;o);
+// MODIFIES: this
+// EFFECTS: adds this complex number with the // complex number o and return a reference
+// to the current object.
+  friend Complex operator+(const Complex &amp;o1,const Complex &amp;o2);
+};
+
+Complex operator + (const Complex &amp;o1, const Complex &amp;o2) {
+	Complex rst;
+	rst.real = o1.real + o2.real; rst.imag = o1.imag + o2.imag; 
+  return rst;
+}
+</code></pre>
+</li>
+<li>
+<p>Example for different operators</p>
+<p><strong>opeartor[]</strong> - binary operator</p>
+<p><em>const version and nonconst versio</em> needed. call non-const version first</p>
+<pre><code class="language-c++">const int &amp;IntSet::operator[](int i) const { 
+  // with some const object or whithin some const member function
+  if(i &gt;= 0 &amp;&amp; i &lt; numElts) 
+    return elts[i]; 
+  else throw -1;
+}
+
+int &amp;IntSet::operator[](int i) { 
+  // when assign an element through the subscript eg. is[5]=2
+  if(i &gt;= 0 &amp;&amp; i &lt; numElts) 
+    return elts[i]; 
+  else throw -1;
+}
+</code></pre>
+<p><strong>operator&lt;&lt; &amp;&amp; operator &gt;&gt;</strong>  - binary</p>
+<p><em>returns a reference its ostream parameter</em> - so could chained together</p>
+<p>must be <em>nonmember</em> function -first operand: ostream type, not of the class type</p>
+<pre><code class="language-c++">ostream &amp;operator&lt;&lt;(ostream &amp;os, const IntSet &amp;is){ 
+  // not return const parameter - may be changed 
+  for(int i = 0; i &lt; is.size(); i++)
+    os &lt;&lt; is[i] &lt;&lt; &quot; &quot;;
+  return os;
+}
+istream &amp;operator&gt;&gt;(istream &amp;is, foo &amp;obj){ 
+  ...
+    return is; 
+}
+</code></pre>
+</li>
+</ol>
+<h2 id="linear-list">Linear List</h2>
+<p>A collection of zero or more integers; <strong>duplicates possible.</strong>  Insertion and removal <strong>by position</strong> (remember to check the boundary condition)</p>
+<pre><code class="language-c++">   void insert(int i, int v) // if 0 &lt;= i &lt;= N 
+   // (N is the size of the list), insert v at position i
+   // otherwise, throws BoundsError exception.
+
+</code></pre>
+<h2 id="stack">Stack</h2>
+<p><strong>LIFO</strong> access: last in, first out (restriction from linear list) 一叠盘子 insert at first, remove from first</p>
+<p>Through <em>single-ended, singly-linked list</em>, top be the first node</p>
+<pre><code>size(): number of elements in the stack.
+isEmpty(): checks if stack has no elements.
+push(Object o): add object o to the top of stack.
+pop(): remove the top object if stack is not empty; otherwise, throw stackEmpty.
+Object &amp;top(): return a reference to the top element.
+</code></pre>
+<h2 id="queue">Queue</h2>
+<p><strong>FIFO</strong> access: first in, first out 一个队列 insert at last, remove from the front</p>
+<p>Through <em>double-ended, singly-linked list</em> or <em>circular array</em></p>
+<pre><code>size(): number of elements in the queue.
+isEmpty(): check if queue has no elements.
+enqueue(Object o): add object o to the rear of the queue.
+dequeue(): remove the front object of the queue if not empty; otherwise, throw queueEmpty.
+Object &amp;front(): return a reference to the front element of the queue.
+Object &amp;rear(): return a reference to the rear element of the queue.
+</code></pre>
+<p><em>Circular array</em></p>
+<pre><code class="language-c++">// If front(or rear) == MAXSIZE-1, the statement sets front(or rear) to 0.
+front = (front+1) % MAXSIZE;
+rear = (rear+1) % MAXSIZE;
+
+// need to distinguish between the full array and empty array
+// add size 
+</code></pre>
+<h2 id="deque">Deque</h2>
+<p>Double-ended queue, A combination of stack and queue. Items can be inserted and removed from <strong>both ends</strong> of the list.</p>
+<p>Through <em>Double-ended doubly-linked list</em> or <em>Circular array</em></p>
+<h2 id="stl">STL</h2>
+<p>defines powerful, template-based, reusable components that implements common data structures and algorithms</p>
+<p>Three components:</p>
+<ul>
+<li>
+<p>containers</p>
+</li>
+<li>
+<p>iterators</p>
+<p>pointers to the elements of containers.</p>
+<pre><code class="language-c++">vector&lt;int&gt;::iterator it;
+// could not change the value pointed by the const_iterator through const_iterator
+vector&lt;string&gt;::const_iterator itConst; 
+*itConst = &quot;Wrong operation&quot; 
+</code></pre>
+</li>
+<li>
+<p>algorithms</p>
+</li>
+</ul>
+<p>Common operations for all three different types</p>
+<p>Common operations</p>
+<pre><code class="language-c++">C&lt;T&gt; c; // creates an empty container
+C&lt;T&gt; c1(c2); // copies elements from c2 into c1, c2 must be the same type as c1
+C&lt;T&gt; c(b, e); // b and e are iterators denoting a sequence. Copy elements from the sequence into c
+begin(), end(), size(), empty(), clear(), =
+</code></pre>
+<h3 id="sequential-container">Sequential Container</h3>
+<p>Elements' order controlled by the programmer, independent of the value of the elements</p>
+<h4 id="vector">vector</h4>
+<ul>
+<li>
+<p>based on array, collection of a single type objects</p>
+</li>
+<li>
+<p>Supports fast random access.</p>
+</li>
+<li>
+<p>Fast insert/delete at front or back.</p>
+</li>
+<li>
+<p>Iterator</p>
+<p>Iterator Arithmetic <code>iter+n, iter-n</code></p>
+<p>Relational Operation on Iterator <code>&gt;, &gt;=, &lt;, &lt;=</code> Compare the postion, ahead means smaller</p>
+</li>
+</ul>
+<pre><code class="language-c++">vector&lt;int&gt; v;
+vector&lt;int&gt;::iterator it = v.begin(); 
+// v.end() : not denote an actual element, positioning to one-past-the-end
+vector&lt;int&gt;::iterator mid = v.begin() + v.size()/2;
+
+// sizeof(int) in the example is the sizeof(type name); sizeof(a) is the sizeof(obj)
+// sizeof an array is equivalent to taking the sizeof the element type times the number of elements in the array
+int a[] = {1, 2, 3, 4};
+unsigned int sz = sizeof(a)/sizeof(int);
+vector&lt;int&gt; vi(a, a+sz);
+</code></pre>
+<h4 id="deque-2">deque</h4>
+<ul>
+<li>based on array</li>
+<li>Supports fast random access.</li>
+<li>Fast insert/delete at front or back.</li>
+</ul>
+<h4 id="list">List</h4>
+<ul>
+<li>based on a doubly-linked list</li>
+<li>Fast insert/delete at any point in the list.</li>
+</ul>
+<p>no Iterator Arithmetic</p>
+<h3 id="associative-container">Associative Container</h3>
+<p>Elements' order based on value, irrelevant to their insertion order</p>
+<h4 id="map-associative-array">map / associative array</h4>
+<p>Elements in map are ordered by keys,</p>
+<ul>
+<li>
+<p>Subscripting a vector = dereferencing a vector iterator</p>
+<p>Subscripting a map ≠ dereferencing a map iterator (if not exist this key, new key will be  created)</p>
+</li>
+</ul>
+<h3 id="container-adapters">Container Adapters</h3>
+<p>container adaptor takes an existing container type and makes it act like a different abstract data type</p>
+<h4 id="stack-2">Stack</h4>
+<ul>
+<li>sequential container adaptors</li>
+<li>use a sequential container <code>c</code> to initialize, <code>c</code> must be deque</li>
+</ul>
+<h4 id="queue-2">Queue</h4>
+<ul>
+<li>sequential container adaptors</li>
+<li>use a sequential container <code>c</code> to initialize, <code>c</code> must be deque</li>
+</ul>
+<h2 id="dictionary">Dictionary</h2>
+<ul>
+<li>optimized to quickly <strong>add</strong> <strong>(key, value)</strong> pair and <strong>retrieve</strong> <strong>value</strong> by key.</li>
+<li>one key could only associated to one value in a dictionary</li>
+</ul>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://yuxin-miao.github.io/post/ve477-notes/">
+                <h3 class="post-title">
+                  <i class="ri-arrow-left-line"></i>
+                  VE477 Notes
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://yuxin-miao.github.io/post/hello-gridea/">
+                <h3 class="post-title">
+                  Hello Gridea
+                  <i class="ri-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://yuxin-miao.github.io/media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
