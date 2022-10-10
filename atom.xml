@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yuxin-miao.github.io</id>
     <title>Xinmiao</title>
-    <updated>2022-10-10T20:41:37.532Z</updated>
+    <updated>2022-10-10T20:43:15.268Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://yuxin-miao.github.io"/>
     <link rel="self" href="https://yuxin-miao.github.io/atom.xml"/>
@@ -4579,6 +4579,66 @@ vector&lt;int&gt; vi(a, a+sz);
 <ul>
 <li>optimized to quickly <strong>add</strong> <strong>(key, value)</strong> pair and <strong>retrieve</strong> <strong>value</strong> by key.</li>
 <li>one key could only associated to one value in a dictionary</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[笔/面试记录 ]]></title>
+        <id>https://yuxin-miao.github.io/post/interview-record/</id>
+        <link href="https://yuxin-miao.github.io/post/interview-record/">
+        </link>
+        <updated>2020-01-01T14:24:05.000Z</updated>
+        <summary type="html"><![CDATA[<p>Just for record.</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Just for record.</p>
+<!-- more -->
+<h1 id="c-输入输出">C++ 输入输出</h1>
+<ul>
+<li>输入第一行为 int n，第二行为n个空格隔开的字符串<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main(argc, const char* argv[]) {
+    int num;
+    cin &gt;&gt; num;
+    vector&lt;string&gt; v;
+    string  val;
+    while (num--) {
+        cin &gt;&gt; val;
+        v.push_back(val);
+    }
+}
+</code></pre>
+</li>
+<li>多行输入，每行空格隔开，有n个字符<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main(argc, const char* argv[]) {
+    string input;
+    while (getline(cin, input)) {
+        istringstream iss(input);
+        string str;
+        vector&lt;string&gt; vec;
+        while (iss &gt;&gt; str)  // string could also be int/double...
+          vec.push_back(str);
+    }
+}
+</code></pre>
+</li>
+<li>输入多组，每组包含两个正整数</li>
+</ul>
+<pre><code class="language-c++">  #include &lt;iostream&gt;
+  int main(argc, const char* argv[]) {
+      int a, b;
+      while (scanf(&quot;%d, %d&quot;, &amp;a, &amp;b) != EOF) {
+          ... 
+      }
+  }
+</code></pre>
+<ul>
+<li></li>
 </ul>
 ]]></content>
     </entry>
