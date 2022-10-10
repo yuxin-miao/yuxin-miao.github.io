@@ -33,37 +33,13 @@ CS MS @ KTH | ECE BS @ SJTU
       
         <div class="animated fadeInLeft" style="animation-delay: 0.4s">
           <p class="my-4 text-gray-600 font-light hidden lg:block">
-            Hi :)<br> 
-Student <br> 
-CS MS @ KTH | ECE BS @ SJTU
-
+            文章目录
           </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/yuxin-miao" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="ri-github-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#c-%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA">C++ 输入输出</a></li>
+</ul>
+
           </div>
         </div>
       
@@ -107,72 +83,76 @@ CS MS @ KTH | ECE BS @ SJTU
 </div>
 <div class="mask" onclick="closeMenu()">
 </div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="text-lg text-gray-700 mb-8">
-          <i class="ri-bookmark-line"></i> CourseProject
-        </h2>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">笔/面试记录 </h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2022-10-09 / 1 min read
+        </div>
         
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-      <a href="https://yuxin-miao.github.io/post/animeet/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
-        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://yuxin-miao.github.io/post-images/animeet.png'">
+        <div class="post-content yue">
+          <p>Just for record.</p>
+<!-- more -->
+<h1 id="c-输入输出">C++ 输入输出</h1>
+<ul>
+<li>输入第一行为 int n，第二行为n个空格隔开的字符串<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main(argc, const char* argv[]) {
+    int num;
+    cin &gt;&gt; num;
+    vector&lt;string&gt; v;
+    string  val;
+    while (num--) {
+        cin &gt;&gt; val;
+        v.push_back(val);
+    }
+}
+</code></pre>
+</li>
+<li>多行输入，每行空格隔开，有n个字符<pre><code class="language-c++">#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+int main(argc, const char* argv[]) {
+    string input;
+    while (getline(cin, input)) {
+        istringstream iss(input);
+        string str;
+        vector&lt;string&gt; vec;
+        while (iss &gt;&gt; str)  // string could also be int/double...
+          vec.push_back(str);
+    }
+}
+</code></pre>
+</li>
+<li>输入多组，每组包含两个正整数</li>
+</ul>
+<pre><code class="language-c++">  #include &lt;iostream&gt;
+  int main(argc, const char* argv[]) {
+      int a, b;
+      while (scanf(&quot;%d, %d&quot;, &amp;a, &amp;b) != EOF) {
+          ... 
+      }
+  }
+</code></pre>
+<ul>
+<li></li>
+</ul>
+
         </div>
-      </a>
-    
-    <div class="content">
-      <a href="https://yuxin-miao.github.io/post/animeet/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Animeet</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>A web-based visualization tool for anime dataset.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2022-06-21 / 2 min read</div>
-    </div>
-  </section>
+        
 
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-    
-      <a href="https://yuxin-miao.github.io/post/awakening-of-sonny/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
-        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://yuxin-miao.github.io/post-images/awakening-of-sonny.png'">
+
+        <div class="flex justify-between py-8">
+          
+
+          
         </div>
-      </a>
-    
-    <div class="content">
-      <a href="https://yuxin-miao.github.io/post/awakening-of-sonny/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Awakening of Sonny</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>An action-adventure game created with Unity.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2022-06-15 / 1 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
-    
-      <a href="https://yuxin-miao.github.io/post/stock-price-prediction/" class="feature-image-wrapper bg-gray-100 rounded-lg flex-shrink-0 mr-8 w-full h-56 h-32 md:w-56 md:h-40">
-        <div class="post-feature-image lazy w-full h-56 h-32 md:w-56 md:h-40" data-bg="'https://yuxin-miao.github.io/post-images/stock-price-prediction.png'">
-        </div>
-      </a>
-    
-    <div class="content">
-      <a href="https://yuxin-miao.github.io/post/stock-price-prediction/">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Stock Price Prediction</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>The project mainly focus on analysis procedure, but not final model training/test accuracy. So no popular machine learning algorithm (for regression root requirement).</p>
-
-      </div>
-      <div class="text-gray-400 text-sm font-light">2020-12-15 / 1 min read</div>
-    </div>
-  </section>
-
-        <div class="pagination-container animated fadeIn">
-  
-  
-</div>
+        
 
       </div>
     </div>
